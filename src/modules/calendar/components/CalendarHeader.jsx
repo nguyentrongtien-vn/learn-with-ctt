@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { useApp } from '../../../context/AppContext';
-import Icon from '../../../components/ui/Icon';
+import React, { useState } from "react";
+import { useApp } from "../../../context/AppContext";
+import Icon from "../../../components/ui/Icon";
 
-export default function CalendarHeader({ activeView, setActiveView, onJumpToday }) {
-  const {
-    calendarOptimized,
-    setCalendarOptimized
-  } = useApp();
+export default function CalendarHeader({
+  activeView,
+  setActiveView,
+  onJumpToday,
+}) {
+  const { calendarOptimized, setCalendarOptimized } = useApp();
 
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [successMsg, setSuccessMsg] = useState(false);
@@ -79,22 +80,24 @@ export default function CalendarHeader({ activeView, setActiveView, onJumpToday 
         <div className="flex items-center p-1 rounded-xl bg-surface-container-low border border-surface-container-high/50 text-[13px] font-medium">
           <button
             type="button"
-            onClick={() => setActiveView('grid')}
-            className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${activeView === 'grid'
-                ? 'bg-surface-container-lowest text-primary font-bold shadow-2xs'
-                : 'text-on-surface-variant hover:text-on-surface'
-              }`}
+            onClick={() => setActiveView("grid")}
+            className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+              activeView === "grid"
+                ? "bg-surface-container-lowest text-primary font-bold shadow-2xs"
+                : "text-on-surface-variant hover:text-on-surface"
+            }`}
           >
             <Icon name="calendar_view_week" size={16} />
             <span>Tuần</span>
           </button>
           <button
             type="button"
-            onClick={() => setActiveView('list')}
-            className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${activeView === 'list'
-                ? 'bg-surface-container-lowest text-primary font-bold shadow-2xs'
-                : 'text-on-surface-variant hover:text-on-surface'
-              }`}
+            onClick={() => setActiveView("list")}
+            className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+              activeView === "list"
+                ? "bg-surface-container-lowest text-primary font-bold shadow-2xs"
+                : "text-on-surface-variant hover:text-on-surface"
+            }`}
           >
             <Icon name="view_agenda" size={16} />
             <span>Lịch biểu</span>
@@ -107,8 +110,14 @@ export default function CalendarHeader({ activeView, setActiveView, onJumpToday 
           onClick={handleSyncGoogle}
           className="px-3.5 py-2 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-[13px] font-semibold border border-surface-container-high/50 transition-colors flex items-center gap-2 shadow-2xs"
         >
-          <Icon name={syncedGoogle ? 'check' : 'sync'} size={17} className={syncedGoogle ? 'text-secondary' : 'text-primary'} />
-          <span className="hidden sm:inline">{syncedGoogle ? 'Đã đồng bộ!' : 'Google Calendar'}</span>
+          <Icon
+            name={syncedGoogle ? "check" : "sync"}
+            size={17}
+            className={syncedGoogle ? "text-secondary" : "text-primary"}
+          />
+          <span className="hidden sm:inline">
+            {syncedGoogle ? "Đã đồng bộ!" : "Google Calendar"}
+          </span>
         </button>
 
         {/* AI Optimize Button */}
@@ -116,14 +125,15 @@ export default function CalendarHeader({ activeView, setActiveView, onJumpToday 
           type="button"
           onClick={handleOptimize}
           disabled={isOptimizing}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-white text-[13px] font-bold shadow-sm transition-all active:scale-95 ${successMsg
-              ? 'bg-emerald-600'
-              : 'bg-primary hover:bg-primary/90'
-            }`}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-white text-[13px] font-bold shadow-sm transition-all active:scale-95 ${
+            successMsg ? "bg-emerald-600" : "bg-primary hover:bg-primary/90"
+          }`}
         >
           {isOptimizing ? (
             <>
-              <span className="material-symbols-outlined text-[17px] animate-spin">refresh</span>
+              <span className="material-symbols-outlined text-[17px] animate-spin">
+                refresh
+              </span>
               <span>Đang tính toán...</span>
             </>
           ) : successMsg ? (

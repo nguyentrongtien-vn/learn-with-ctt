@@ -1,585 +1,832 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      @layer base {
+        html,
+        body {
+          margin: 0;
+          padding: 0;
+        }
 
-<head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap"
-    rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-    rel="stylesheet" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-    rel="stylesheet" />
-  <style>
-    @layer base {
+        body {
+          overscroll-behavior: none;
+        }
 
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
+        main > :first-child {
+          margin-top: 0 !important;
+        }
 
-      body {
-        overscroll-behavior: none;
-      }
-
-      main>:first-child {
-        margin-top: 0 !important;
-      }
-
-      main>:last-child {
-        margin-bottom: 0 !important;
-      }
-    }
-
-    ::-webkit-scrollbar {
-      display: none;
-    }
-  </style>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script id="tailwind-config">tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          "colors": {
-            "on-error-container": "#93000a",
-            "surface-container": "#e5eeff",
-            "on-error": "#ffffff",
-            "secondary-fixed-dim": "#6bd8cb",
-            "background": "#f8f9ff",
-            "secondary-container": "#86f2e4",
-            "on-tertiary-fixed-variant": "#653e00",
-            "on-surface-variant": "#464554",
-            "error": "#ba1a1a",
-            "surface-container-highest": "#d3e4fe",
-            "outline": "#777586",
-            "on-secondary": "#ffffff",
-            "on-secondary-fixed-variant": "#005049",
-            "on-tertiary-fixed": "#2a1700",
-            "on-primary": "#ffffff",
-            "surface-bright": "#f8f9ff",
-            "surface-container-low": "#eff4ff",
-            "on-surface": "#0b1c30",
-            "secondary-fixed": "#89f5e7",
-            "error-container": "#ffdad6",
-            "on-primary-fixed-variant": "#372abf",
-            "inverse-primary": "#c3c0ff",
-            "tertiary-fixed": "#ffddb8",
-            "surface-tint": "#5148d7",
-            "on-secondary-container": "#006f66",
-            "surface": "#f8f9ff",
-            "primary-container": "#4338ca",
-            "on-primary-fixed": "#100069",
-            "tertiary-fixed-dim": "#ffb95f",
-            "tertiary-container": "#744800",
-            "inverse-on-surface": "#eaf1ff",
-            "surface-container-high": "#dce9ff",
-            "on-background": "#0b1c30",
-            "primary-fixed-dim": "#c3c0ff",
-            "inverse-surface": "#213145",
-            "primary": "#2a14b4",
-            "tertiary": "#553300",
-            "on-primary-container": "#c1beff",
-            "surface-dim": "#cbdbf5",
-            "on-secondary-fixed": "#00201d",
-            "on-tertiary-container": "#ffb759",
-            "outline-variant": "#c7c4d7",
-            "primary-fixed": "#e3dfff",
-            "secondary": "#006a61",
-            "on-tertiary": "#ffffff",
-            "surface-variant": "#d3e4fe",
-            "surface-container-lowest": "#ffffff"
-          },
-          "borderRadius": {
-            "DEFAULT": "0.25rem",
-            "lg": "0.5rem",
-            "xl": "0.75rem",
-            "full": "9999px"
-          },
-          "spacing": {
-            "layout-margin-desktop": "2.5rem",
-            "space-3xl": "4rem",
-            "layout-margin-mobile": "1rem",
-            "space-lg": "1.5rem",
-            "space-xs": "0.5rem",
-            "space-xl": "2rem",
-            "gutter": "1.5rem",
-            "space-md": "1rem",
-            "space-sm": "0.75rem",
-            "space-2xl": "3rem",
-            "space-2xs": "0.25rem"
-          },
-          "fontFamily": {
-            "display-mobile": [
-              "Plus Jakarta Sans"
-            ],
-            "headline-md": [
-              "Plus Jakarta Sans"
-            ],
-            "body-sm": [
-              "Inter"
-            ],
-            "headline-sm": [
-              "Plus Jakarta Sans"
-            ],
-            "label-md": [
-              "Plus Jakarta Sans"
-            ],
-            "headline-lg": [
-              "Plus Jakarta Sans"
-            ],
-            "display": [
-              "Plus Jakarta Sans"
-            ],
-            "headline-lg-mobile": [
-              "Plus Jakarta Sans"
-            ],
-            "body-md": [
-              "Inter"
-            ],
-            "label-sm": [
-              "Plus Jakarta Sans"
-            ],
-            "body-lg": [
-              "Inter"
-            ],
-            "title": [
-              "Plus Jakarta Sans"
-            ]
-          },
-          "fontSize": {
-            "display-mobile": [
-              "30px",
-              {
-                "lineHeight": "38px",
-                "letterSpacing": "-0.015em",
-                "fontWeight": "700"
-              }
-            ],
-            "headline-md": [
-              "22px",
-              {
-                "lineHeight": "28px",
-                "letterSpacing": "-0.01em",
-                "fontWeight": "600"
-              }
-            ],
-            "body-sm": [
-              "12px",
-              {
-                "lineHeight": "18px",
-                "fontWeight": "400"
-              }
-            ],
-            "headline-sm": [
-              "18px",
-              {
-                "lineHeight": "24px",
-                "letterSpacing": "-0.005em",
-                "fontWeight": "600"
-              }
-            ],
-            "label-md": [
-              "13px",
-              {
-                "lineHeight": "18px",
-                "letterSpacing": "0.01em",
-                "fontWeight": "600"
-              }
-            ],
-            "headline-lg": [
-              "30px",
-              {
-                "lineHeight": "38px",
-                "letterSpacing": "-0.015em",
-                "fontWeight": "600"
-              }
-            ],
-            "display": [
-              "40px",
-              {
-                "lineHeight": "48px",
-                "letterSpacing": "-0.02em",
-                "fontWeight": "700"
-              }
-            ],
-            "headline-lg-mobile": [
-              "24px",
-              {
-                "lineHeight": "32px",
-                "letterSpacing": "-0.01em",
-                "fontWeight": "600"
-              }
-            ],
-            "body-md": [
-              "14px",
-              {
-                "lineHeight": "22px",
-                "fontWeight": "400"
-              }
-            ],
-            "label-sm": [
-              "11px",
-              {
-                "lineHeight": "14px",
-                "letterSpacing": "0.02em",
-                "fontWeight": "600"
-              }
-            ],
-            "body-lg": [
-              "16px",
-              {
-                "lineHeight": "26px",
-                "fontWeight": "400"
-              }
-            ],
-            "title": [
-              "16px",
-              {
-                "lineHeight": "22px",
-                "fontWeight": "600"
-              }
-            ]
-          }
+        main > :last-child {
+          margin-bottom: 0 !important;
         }
       }
-    }</script>
-</head>
 
-<body class="bg-background font-body-md text-on-surface h-screen overflow-hidden flex">
-  <aside
-    class="w-72 h-screen flex-shrink-0 bg-surface-container-lowest flex flex-col justify-between p-space-md z-30 shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
-    <div class="flex flex-col gap-space-md">
-      <div class="flex items-start gap-space-xs px-space-xs pt-space-xs"><img alt="Học Cùng CTT"
-          class="h-8 w-auto object-contain"
-          src="https://lh3.googleusercontent.com/aida/AEtjO1UmFkSZfqWzs-75PVohlWXJ9kW-fgFGDi_adF0sCUvOR2I4OTEbTmzbY3u_TNhs9_6iHBT76FxgkI8cCjA9axnJwj1r4CQUN1Wum6C5afdR2sjGv9DyKueIWpN-Y72PKrEkbcTmwhWNYgTj8_MCEBpQWgz5n3wBp9JX5sK1aD_96Hl2ksPZ-ICiobWw7GxOaBvQymODmpiHo5IEHwaq5J5taMjVnzQVqlgdlWmG6xLXHdH_sH7ewDjyLjmP" />
-        <div class="flex flex-col min-w-0"><span
-            class="font-title text-title text-on-surface leading-tight truncate">HỌC CÙNG CTT</span><span
-            class="font-label-sm text-label-sm text-primary tracking-wide">Connect · Train · Thrive</span>
-          <p class="font-body-sm text-body-sm text-on-surface-variant italic mt-space-2xs leading-snug">‘Không học thay
-            bạn, học cùng bạn.’</p>
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-error-container": "#93000a",
+              "surface-container": "#e5eeff",
+              "on-error": "#ffffff",
+              "secondary-fixed-dim": "#6bd8cb",
+              background: "#f8f9ff",
+              "secondary-container": "#86f2e4",
+              "on-tertiary-fixed-variant": "#653e00",
+              "on-surface-variant": "#464554",
+              error: "#ba1a1a",
+              "surface-container-highest": "#d3e4fe",
+              outline: "#777586",
+              "on-secondary": "#ffffff",
+              "on-secondary-fixed-variant": "#005049",
+              "on-tertiary-fixed": "#2a1700",
+              "on-primary": "#ffffff",
+              "surface-bright": "#f8f9ff",
+              "surface-container-low": "#eff4ff",
+              "on-surface": "#0b1c30",
+              "secondary-fixed": "#89f5e7",
+              "error-container": "#ffdad6",
+              "on-primary-fixed-variant": "#372abf",
+              "inverse-primary": "#c3c0ff",
+              "tertiary-fixed": "#ffddb8",
+              "surface-tint": "#5148d7",
+              "on-secondary-container": "#006f66",
+              surface: "#f8f9ff",
+              "primary-container": "#4338ca",
+              "on-primary-fixed": "#100069",
+              "tertiary-fixed-dim": "#ffb95f",
+              "tertiary-container": "#744800",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-container-high": "#dce9ff",
+              "on-background": "#0b1c30",
+              "primary-fixed-dim": "#c3c0ff",
+              "inverse-surface": "#213145",
+              primary: "#2a14b4",
+              tertiary: "#553300",
+              "on-primary-container": "#c1beff",
+              "surface-dim": "#cbdbf5",
+              "on-secondary-fixed": "#00201d",
+              "on-tertiary-container": "#ffb759",
+              "outline-variant": "#c7c4d7",
+              "primary-fixed": "#e3dfff",
+              secondary: "#006a61",
+              "on-tertiary": "#ffffff",
+              "surface-variant": "#d3e4fe",
+              "surface-container-lowest": "#ffffff",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              "layout-margin-desktop": "2.5rem",
+              "space-3xl": "4rem",
+              "layout-margin-mobile": "1rem",
+              "space-lg": "1.5rem",
+              "space-xs": "0.5rem",
+              "space-xl": "2rem",
+              gutter: "1.5rem",
+              "space-md": "1rem",
+              "space-sm": "0.75rem",
+              "space-2xl": "3rem",
+              "space-2xs": "0.25rem",
+            },
+            fontFamily: {
+              "display-mobile": ["Plus Jakarta Sans"],
+              "headline-md": ["Plus Jakarta Sans"],
+              "body-sm": ["Inter"],
+              "headline-sm": ["Plus Jakarta Sans"],
+              "label-md": ["Plus Jakarta Sans"],
+              "headline-lg": ["Plus Jakarta Sans"],
+              display: ["Plus Jakarta Sans"],
+              "headline-lg-mobile": ["Plus Jakarta Sans"],
+              "body-md": ["Inter"],
+              "label-sm": ["Plus Jakarta Sans"],
+              "body-lg": ["Inter"],
+              title: ["Plus Jakarta Sans"],
+            },
+            fontSize: {
+              "display-mobile": [
+                "30px",
+                {
+                  lineHeight: "38px",
+                  letterSpacing: "-0.015em",
+                  fontWeight: "700",
+                },
+              ],
+              "headline-md": [
+                "22px",
+                {
+                  lineHeight: "28px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-sm": [
+                "12px",
+                {
+                  lineHeight: "18px",
+                  fontWeight: "400",
+                },
+              ],
+              "headline-sm": [
+                "18px",
+                {
+                  lineHeight: "24px",
+                  letterSpacing: "-0.005em",
+                  fontWeight: "600",
+                },
+              ],
+              "label-md": [
+                "13px",
+                {
+                  lineHeight: "18px",
+                  letterSpacing: "0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              "headline-lg": [
+                "30px",
+                {
+                  lineHeight: "38px",
+                  letterSpacing: "-0.015em",
+                  fontWeight: "600",
+                },
+              ],
+              display: [
+                "40px",
+                {
+                  lineHeight: "48px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "headline-lg-mobile": [
+                "24px",
+                {
+                  lineHeight: "32px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-md": [
+                "14px",
+                {
+                  lineHeight: "22px",
+                  fontWeight: "400",
+                },
+              ],
+              "label-sm": [
+                "11px",
+                {
+                  lineHeight: "14px",
+                  letterSpacing: "0.02em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-lg": [
+                "16px",
+                {
+                  lineHeight: "26px",
+                  fontWeight: "400",
+                },
+              ],
+              title: [
+                "16px",
+                {
+                  lineHeight: "22px",
+                  fontWeight: "600",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body
+    class="bg-background font-body-md text-on-surface h-screen overflow-hidden flex"
+  >
+    <aside
+      class="w-72 h-screen flex-shrink-0 bg-surface-container-lowest flex flex-col justify-between p-space-md z-30 shadow-[0_1px_8px_rgba(0,0,0,0.04)]"
+    >
+      <div class="flex flex-col gap-space-md">
+        <div class="flex items-start gap-space-xs px-space-xs pt-space-xs">
+          <img
+            alt="Học Cùng CTT"
+            class="h-8 w-auto object-contain"
+            src="https://lh3.googleusercontent.com/aida/AEtjO1UmFkSZfqWzs-75PVohlWXJ9kW-fgFGDi_adF0sCUvOR2I4OTEbTmzbY3u_TNhs9_6iHBT76FxgkI8cCjA9axnJwj1r4CQUN1Wum6C5afdR2sjGv9DyKueIWpN-Y72PKrEkbcTmwhWNYgTj8_MCEBpQWgz5n3wBp9JX5sK1aD_96Hl2ksPZ-ICiobWw7GxOaBvQymODmpiHo5IEHwaq5J5taMjVnzQVqlgdlWmG6xLXHdH_sH7ewDjyLjmP"
+          />
+          <div class="flex flex-col min-w-0">
+            <span
+              class="font-title text-title text-on-surface leading-tight truncate"
+              >HỌC CÙNG CTT</span
+            ><span
+              class="font-label-sm text-label-sm text-primary tracking-wide"
+              >Connect · Train · Thrive</span
+            >
+            <p
+              class="font-body-sm text-body-sm text-on-surface-variant italic mt-space-2xs leading-snug"
+            >
+              ‘Không học thay bạn, học cùng bạn.’
+            </p>
+          </div>
+        </div>
+        <nav
+          class="flex flex-col gap-space-2xs mt-space-xs"
+          data-active-classes="bg-primary-container text-on-primary font-title rounded-xl"
+        >
+          <a
+            class="flex items-center gap-space-sm px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all"
+            data-path="home"
+            href="#"
+            ><span class="material-symbols-outlined text-[20px]">home</span
+            ><span class="font-label-md text-label-md">Home</span></a
+          ><a
+            aria-current="page"
+            class="flex items-center gap-space-sm px-space-md py-2.5 transition-all bg-primary-container text-on-primary font-title rounded-xl"
+            data-path="courses"
+            href="#"
+            ><span class="material-symbols-outlined text-[20px]">menu_book</span
+            ><span class="font-label-md text-label-md">Courses</span></a
+          ><a
+            class="flex items-center gap-space-sm px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all"
+            data-path="study-calendar"
+            href="#"
+            ><span class="material-symbols-outlined text-[20px]"
+              >calendar_month</span
+            ><span class="font-label-md text-label-md">Study Calendar</span></a
+          ><a
+            class="flex items-center gap-space-sm px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all"
+            data-path="ai-companion"
+            href="#"
+            ><span class="material-symbols-outlined text-[20px]"
+              >psychology</span
+            ><span class="font-label-md text-label-md">AI Companion</span></a
+          >
+          <div
+            class="h-px bg-surface-container-high my-space-2xs mx-space-xs"
+          ></div>
+          <a
+            class="flex items-center gap-space-sm px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all"
+            data-path="settings"
+            href="#"
+            ><span class="material-symbols-outlined text-[20px]">settings</span
+            ><span class="font-label-md text-label-md">Settings</span></a
+          >
+        </nav>
+      </div>
+      <div
+        class="p-space-xs rounded-xl bg-surface-container-low flex items-center gap-space-sm"
+      >
+        <div
+          class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"
+        >
+          <span class="material-symbols-outlined text-on-primary text-[18px]"
+            >person</span
+          >
+        </div>
+        <div class="flex flex-col min-w-0">
+          <span
+            class="font-label-md text-label-md text-on-surface font-semibold truncate"
+            >Nguyễn Trọng Tiến</span
+          ><span
+            class="font-label-sm text-label-sm text-on-surface-variant truncate"
+            >CS K14 EIU</span
+          >
         </div>
       </div>
-      <nav class="flex flex-col gap-space-2xs mt-space-xs"
-        data-active-classes="bg-primary-container text-on-primary font-title rounded-xl"><a
-          class="flex items-center gap-space-sm px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all"
-          data-path="home" href="#"><span class="material-symbols-outlined text-[20px]">home</span><span
-            class="font-label-md text-label-md">Home</span></a><a aria-current="page"
-          class="flex items-center gap-space-sm px-space-md py-2.5 transition-all bg-primary-container text-on-primary font-title rounded-xl"
-          data-path="courses" href="#"><span class="material-symbols-outlined text-[20px]">menu_book</span><span
-            class="font-label-md text-label-md">Courses</span></a><a
-          class="flex items-center gap-space-sm px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all"
-          data-path="study-calendar" href="#"><span
-            class="material-symbols-outlined text-[20px]">calendar_month</span><span
-            class="font-label-md text-label-md">Study Calendar</span></a><a
-          class="flex items-center gap-space-sm px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all"
-          data-path="ai-companion" href="#"><span class="material-symbols-outlined text-[20px]">psychology</span><span
-            class="font-label-md text-label-md">AI Companion</span></a>
-        <div class="h-px bg-surface-container-high my-space-2xs mx-space-xs"></div><a
-          class="flex items-center gap-space-sm px-space-md py-2.5 rounded-xl text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-all"
-          data-path="settings" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span
-            class="font-label-md text-label-md">Settings</span></a>
-      </nav>
-    </div>
-    <div class="p-space-xs rounded-xl bg-surface-container-low flex items-center gap-space-sm">
-      <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0"><span
-          class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
-      <div class="flex flex-col min-w-0"><span
-          class="font-label-md text-label-md text-on-surface font-semibold truncate">Nguyễn Trọng Tiến</span><span
-          class="font-label-sm text-label-sm text-on-surface-variant truncate">CS K65 EIU</span></div>
-    </div>
-  </aside>
-  <div class="flex-1 h-screen flex flex-col min-w-0 overflow-hidden">
-    <header
-      class="h-14 flex-shrink-0 bg-surface/80 backdrop-blur-xl flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-20">
-      <div class="flex items-center gap-space-sm"><img alt="Học Cùng CTT" class="h-8 w-auto object-contain"
-          src="https://lh3.googleusercontent.com/aida/AEtjO1UmFkSZfqWzs-75PVohlWXJ9kW-fgFGDi_adF0sCUvOR2I4OTEbTmzbY3u_TNhs9_6iHBT76FxgkI8cCjA9axnJwj1r4CQUN1Wum6C5afdR2sjGv9DyKueIWpN-Y72PKrEkbcTmwhWNYgTj8_MCEBpQWgz5n3wBp9JX5sK1aD_96Hl2ksPZ-ICiobWw7GxOaBvQymODmpiHo5IEHwaq5J5taMjVnzQVqlgdlWmG6xLXHdH_sH7ewDjyLjmP" /><span
-          class="font-title text-title text-on-surface font-semibold">HỌC CÙNG CTT</span></div>
-      <div class="flex items-center gap-space-md">
-        <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span
-            class="material-symbols-outlined text-on-primary text-[18px]">person</span></div>
-      </div>
-    </header>
-    <main class="flex-1 h-[calc(100vh-3.5rem)] overflow-hidden p-6 bg-background">
-      <div class="flex flex-col w-full h-full overflow-hidden justify-between gap-4">
-        <!-- Top Command & Course Meta Bar -->
-        <section
-          class="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-surface-container-lowest p-space-md rounded-xl shadow-sm">
-          <div class="flex flex-col gap-1 min-w-0">
-            <div class="flex items-center gap-space-xs text-on-surface-variant">
-              <a class="inline-flex items-center gap-1 font-label-md text-label-md text-primary hover:text-on-primary-fixed-variant transition-colors group"
-                href="#">
-                <span
-                  class="material-symbols-outlined text-[16px] group-hover:-translate-x-0.5 transition-transform">arrow_back</span>
-                Quay lại Courses
-              </a>
-              <span class="text-outline-variant font-label-sm">/</span>
-              <span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Học kỳ II ·
-                2024</span>
-            </div>
-            <div class="flex items-baseline gap-space-sm flex-wrap">
-              <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold">DATA STRUCTURES
-                <span class="text-primary font-headline-md text-headline-md font-semibold">(CS201)</span></h1>
-              <div class="inline-flex items-center gap-2 bg-surface-container px-2.5 py-0.5 rounded-full">
-                <div class="w-2 h-2 rounded-full bg-secondary"></div>
-                <span class="font-label-sm text-label-sm text-on-surface font-medium">68% Mastery · 4 bài giảng PDF đã
-                  kết nối</span>
-              </div>
-            </div>
-          </div>
-          <!-- Actions -->
-          <div class="flex items-center gap-space-xs flex-shrink-0">
-            <button
-              class="inline-flex items-center gap-2 px-space-md py-2 rounded-xl bg-surface-container-low text-on-surface font-title text-title hover:bg-surface-container transition-all">
-              <span class="material-symbols-outlined text-[18px] text-primary">upload_file</span>
-              <span>Tải lên tài liệu</span>
-            </button>
-            <button
-              class="inline-flex items-center gap-2 px-space-md py-2 rounded-xl bg-primary text-on-primary font-title text-title hover:bg-primary-container shadow-sm transition-all">
-              <span class="material-symbols-outlined text-[18px]">auto_awesome</span>
-              <span>Tạo đề trắc nghiệm thích ứng</span>
-            </button>
-          </div>
-        </section>
-        <!-- 3-Column Equal Height Intelligent Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1 min-h-0">
-          <!-- LEFT COLUMN: Learning Materials -->
+    </aside>
+    <div class="flex-1 h-screen flex flex-col min-w-0 overflow-hidden">
+      <header
+        class="h-14 flex-shrink-0 bg-surface/80 backdrop-blur-xl flex items-center justify-between px-space-lg shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-20"
+      >
+        <div class="flex items-center gap-space-sm">
+          <img
+            alt="Học Cùng CTT"
+            class="h-8 w-auto object-contain"
+            src="https://lh3.googleusercontent.com/aida/AEtjO1UmFkSZfqWzs-75PVohlWXJ9kW-fgFGDi_adF0sCUvOR2I4OTEbTmzbY3u_TNhs9_6iHBT76FxgkI8cCjA9axnJwj1r4CQUN1Wum6C5afdR2sjGv9DyKueIWpN-Y72PKrEkbcTmwhWNYgTj8_MCEBpQWgz5n3wBp9JX5sK1aD_96Hl2ksPZ-ICiobWw7GxOaBvQymODmpiHo5IEHwaq5J5taMjVnzQVqlgdlWmG6xLXHdH_sH7ewDjyLjmP"
+          /><span class="font-title text-title text-on-surface font-semibold"
+            >HỌC CÙNG CTT</span
+          >
+        </div>
+        <div class="flex items-center gap-space-md">
           <div
-            class="flex flex-col bg-surface-container-lowest rounded-2xl p-space-md shadow-sm overflow-hidden justify-between">
-            <div class="flex flex-col min-h-0 flex-1">
-              <div class="flex items-center justify-between pb-3">
-                <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-primary text-[20px]">folder_open</span>
-                  <h2 class="font-title text-title text-on-surface font-bold">Tài liệu đã nạp</h2>
-                </div>
+            class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"
+          >
+            <span class="material-symbols-outlined text-on-primary text-[18px]"
+              >person</span
+            >
+          </div>
+        </div>
+      </header>
+      <main
+        class="flex-1 h-[calc(100vh-3.5rem)] overflow-hidden p-6 bg-background"
+      >
+        <div
+          class="flex flex-col w-full h-full overflow-hidden justify-between gap-4"
+        >
+          <!-- Top Command & Course Meta Bar -->
+          <section
+            class="flex flex-col md:flex-row md:items-center justify-between gap-3 bg-surface-container-lowest p-space-md rounded-xl shadow-sm"
+          >
+            <div class="flex flex-col gap-1 min-w-0">
+              <div
+                class="flex items-center gap-space-xs text-on-surface-variant"
+              >
+                <a
+                  class="inline-flex items-center gap-1 font-label-md text-label-md text-primary hover:text-on-primary-fixed-variant transition-colors group"
+                  href="#"
+                >
+                  <span
+                    class="material-symbols-outlined text-[16px] group-hover:-translate-x-0.5 transition-transform"
+                    >arrow_back</span
+                  >
+                  Quay lại Courses
+                </a>
+                <span class="text-outline-variant font-label-sm">/</span>
                 <span
-                  class="font-label-sm text-label-sm bg-surface-container text-primary font-semibold px-2 py-0.5 rounded-full">4
-                  files</span>
+                  class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider"
+                  >Học kỳ II · 2024</span
+                >
               </div>
-              <!-- Material items -->
-              <div class="flex flex-col gap-2 overflow-hidden flex-1 justify-start">
-                <div
-                  class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all group">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <div
-                      class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors flex-shrink-0 shadow-sm">
-                      <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-                    </div>
-                    <div class="flex flex-col min-w-0">
-                      <p class="font-label-md text-label-md text-on-surface font-semibold truncate">
-                        Lecture_01_Arrays_and_Memory.pdf</p>
-                      <p class="font-body-sm text-body-sm text-on-surface-variant truncate">12 khái niệm cốt lõi</p>
-                    </div>
-                  </div>
+              <div class="flex items-baseline gap-space-sm flex-wrap">
+                <h1
+                  class="font-headline-lg text-headline-lg text-on-surface tracking-tight font-bold"
+                >
+                  DATA STRUCTURES
                   <span
-                    class="font-label-sm text-label-sm text-secondary flex-shrink-0 px-2 py-0.5 rounded-full bg-secondary-container/40">Đã
-                    kết nối</span>
-                </div>
+                    class="text-primary font-headline-md text-headline-md font-semibold"
+                    >(CS201)</span
+                  >
+                </h1>
                 <div
-                  class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all group">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <div
-                      class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors flex-shrink-0 shadow-sm">
-                      <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-                    </div>
-                    <div class="flex flex-col min-w-0">
-                      <p class="font-label-md text-label-md text-on-surface font-semibold truncate">
-                        Lecture_02_LinkedList_and_Pointers.pdf</p>
-                      <p class="font-body-sm text-body-sm text-on-surface-variant truncate">9 khái niệm cốt lõi</p>
-                    </div>
-                  </div>
+                  class="inline-flex items-center gap-2 bg-surface-container px-2.5 py-0.5 rounded-full"
+                >
+                  <div class="w-2 h-2 rounded-full bg-secondary"></div>
                   <span
-                    class="font-label-sm text-label-sm text-secondary flex-shrink-0 px-2 py-0.5 rounded-full bg-secondary-container/40">Đã
-                    kết nối</span>
-                </div>
-                <div
-                  class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all group">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <div
-                      class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors flex-shrink-0 shadow-sm">
-                      <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-                    </div>
-                    <div class="flex flex-col min-w-0">
-                      <p class="font-label-md text-label-md text-on-surface font-semibold truncate">
-                        Lecture_03_Stack_Queue_Recursion.pdf</p>
-                      <p class="font-body-sm text-body-sm text-on-surface-variant truncate">15 khái niệm cốt lõi</p>
-                    </div>
-                  </div>
-                  <span
-                    class="font-label-sm text-label-sm text-secondary flex-shrink-0 px-2 py-0.5 rounded-full bg-secondary-container/40">Đã
-                    kết nối</span>
-                </div>
-                <div
-                  class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all group">
-                  <div class="flex items-center gap-3 min-w-0">
-                    <div
-                      class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-tertiary-container group-hover:bg-tertiary-container group-hover:text-on-primary transition-colors flex-shrink-0 shadow-sm">
-                      <span class="material-symbols-outlined text-[18px]">picture_as_pdf</span>
-                    </div>
-                    <div class="flex flex-col min-w-0">
-                      <p class="font-label-md text-label-md text-on-surface font-semibold truncate">
-                        Lecture_06_Binary_Trees.pdf</p>
-                      <p class="font-body-sm text-body-sm text-on-tertiary-fixed-variant truncate">Mới nạp · Cần đồng bộ
-                      </p>
-                    </div>
-                  </div>
-                  <span
-                    class="font-label-sm text-label-sm text-tertiary-fixed-dim flex-shrink-0 px-2 py-0.5 rounded-full bg-tertiary-fixed/30 font-semibold">Cần
-                    ôn tập</span>
+                    class="font-label-sm text-label-sm text-on-surface font-medium"
+                    >68% Mastery · 4 bài giảng PDF đã kết nối</span
+                  >
                 </div>
               </div>
             </div>
-            <!-- Action Footer -->
-            <button
-              class="w-full mt-3 py-2.5 rounded-xl bg-surface-container-low text-primary font-title text-title flex items-center justify-center gap-2 hover:bg-surface-container transition-colors shadow-sm">
-              <span class="material-symbols-outlined text-[18px]">add_circle</span>
-              <span>Tải thêm PDF / PPTX</span>
-            </button>
-          </div>
-          <!-- CENTER COLUMN: Weak Concepts -->
-          <div
-            class="flex flex-col bg-surface-container-lowest rounded-2xl p-space-md shadow-sm overflow-hidden justify-between">
-            <div class="flex flex-col min-h-0 flex-1">
-              <div class="flex items-center justify-between pb-3">
-                <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-error text-[20px]">crisis_alert</span>
-                  <h2 class="font-title text-title text-on-surface font-bold">Điểm yếu phát hiện</h2>
-                </div>
-                <span
-                  class="font-label-sm text-label-sm bg-error-container/60 text-on-error-container font-semibold px-2 py-0.5 rounded-full">3
-                  chủ đề</span>
-              </div>
-              <!-- Concept list -->
-              <div class="flex flex-col gap-2.5 overflow-hidden flex-1 justify-start">
-                <!-- Concept 1 -->
-                <div class="p-3 rounded-xl bg-surface-container-low flex flex-col gap-2">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                      <div class="w-2.5 h-2.5 rounded-full bg-error animate-pulse"></div>
-                      <span class="font-title text-title text-on-surface font-semibold">Tree Traversal</span>
-                    </div>
-                    <span class="font-headline-sm text-headline-sm text-error font-bold leading-none">32%</span>
+            <!-- Actions -->
+            <div class="flex items-center gap-space-xs flex-shrink-0">
+              <button
+                class="inline-flex items-center gap-2 px-space-md py-2 rounded-xl bg-surface-container-low text-on-surface font-title text-title hover:bg-surface-container transition-all"
+              >
+                <span class="material-symbols-outlined text-[18px] text-primary"
+                  >upload_file</span
+                >
+                <span>Tải lên tài liệu</span>
+              </button>
+              <button
+                class="inline-flex items-center gap-2 px-space-md py-2 rounded-xl bg-primary text-on-primary font-title text-title hover:bg-primary-container shadow-sm transition-all"
+              >
+                <span class="material-symbols-outlined text-[18px]"
+                  >auto_awesome</span
+                >
+                <span>Tạo đề trắc nghiệm thích ứng</span>
+              </button>
+            </div>
+          </section>
+          <!-- 3-Column Equal Height Intelligent Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1 min-h-0">
+            <!-- LEFT COLUMN: Learning Materials -->
+            <div
+              class="flex flex-col bg-surface-container-lowest rounded-2xl p-space-md shadow-sm overflow-hidden justify-between"
+            >
+              <div class="flex flex-col min-h-0 flex-1">
+                <div class="flex items-center justify-between pb-3">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="material-symbols-outlined text-primary text-[20px]"
+                      >folder_open</span
+                    >
+                    <h2 class="font-title text-title text-on-surface font-bold">
+                      Tài liệu đã nạp
+                    </h2>
                   </div>
-                  <div class="flex items-center justify-between">
-                    <span class="font-body-sm text-body-sm text-error leading-none">Rất yếu — Sai 4/6 câu gần đây</span>
-                    <button
-                      class="px-2.5 py-1 rounded-lg bg-error text-on-error font-label-sm text-label-sm font-semibold hover:opacity-95 transition-opacity">
-                      Ôn tập ngay
-                    </button>
-                  </div>
+                  <span
+                    class="font-label-sm text-label-sm bg-surface-container text-primary font-semibold px-2 py-0.5 rounded-full"
+                    >4 files</span
+                  >
                 </div>
-                <!-- Concept 2 -->
-                <div class="p-3 rounded-xl bg-surface-container-low flex flex-col gap-2">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                      <div class="w-2.5 h-2.5 rounded-full bg-tertiary-container"></div>
-                      <span class="font-title text-title text-on-surface font-semibold">Queue Layout</span>
+                <!-- Material items -->
+                <div
+                  class="flex flex-col gap-2 overflow-hidden flex-1 justify-start"
+                >
+                  <div
+                    class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all group"
+                  >
+                    <div class="flex items-center gap-3 min-w-0">
+                      <div
+                        class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors flex-shrink-0 shadow-sm"
+                      >
+                        <span class="material-symbols-outlined text-[18px]"
+                          >picture_as_pdf</span
+                        >
+                      </div>
+                      <div class="flex flex-col min-w-0">
+                        <p
+                          class="font-label-md text-label-md text-on-surface font-semibold truncate"
+                        >
+                          Lecture_01_Arrays_and_Memory.pdf
+                        </p>
+                        <p
+                          class="font-body-sm text-body-sm text-on-surface-variant truncate"
+                        >
+                          12 khái niệm cốt lõi
+                        </p>
+                      </div>
                     </div>
                     <span
-                      class="font-headline-sm text-headline-sm text-tertiary-container font-bold leading-none">45%</span>
+                      class="font-label-sm text-label-sm text-secondary flex-shrink-0 px-2 py-0.5 rounded-full bg-secondary-container/40"
+                      >Đã kết nối</span
+                    >
                   </div>
-                  <div class="flex items-center justify-between">
-                    <span class="font-body-sm text-body-sm text-on-tertiary-fixed-variant leading-none">Mức độ hiểu:
-                      Trung bình</span>
-                    <button
-                      class="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-colors">
-                      Luyện tập
-                    </button>
-                  </div>
-                </div>
-                <!-- Concept 3 -->
-                <div class="p-3 rounded-xl bg-surface-container-low flex flex-col gap-2">
-                  <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-2">
-                      <div class="w-2.5 h-2.5 rounded-full bg-secondary"></div>
-                      <span class="font-title text-title text-on-surface font-semibold">Recursion Stack</span>
+                  <div
+                    class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all group"
+                  >
+                    <div class="flex items-center gap-3 min-w-0">
+                      <div
+                        class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors flex-shrink-0 shadow-sm"
+                      >
+                        <span class="material-symbols-outlined text-[18px]"
+                          >picture_as_pdf</span
+                        >
+                      </div>
+                      <div class="flex flex-col min-w-0">
+                        <p
+                          class="font-label-md text-label-md text-on-surface font-semibold truncate"
+                        >
+                          Lecture_02_LinkedList_and_Pointers.pdf
+                        </p>
+                        <p
+                          class="font-body-sm text-body-sm text-on-surface-variant truncate"
+                        >
+                          9 khái niệm cốt lõi
+                        </p>
+                      </div>
                     </div>
-                    <span class="font-headline-sm text-headline-sm text-secondary font-bold leading-none">62%</span>
+                    <span
+                      class="font-label-sm text-label-sm text-secondary flex-shrink-0 px-2 py-0.5 rounded-full bg-secondary-container/40"
+                      >Đã kết nối</span
+                    >
                   </div>
-                  <div class="flex items-center justify-between">
-                    <span class="font-body-sm text-body-sm text-on-surface-variant leading-none">Mức độ hiểu: Khá</span>
-                    <button
-                      class="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-colors">
-                      Luyện tập
-                    </button>
+                  <div
+                    class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all group"
+                  >
+                    <div class="flex items-center gap-3 min-w-0">
+                      <div
+                        class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors flex-shrink-0 shadow-sm"
+                      >
+                        <span class="material-symbols-outlined text-[18px]"
+                          >picture_as_pdf</span
+                        >
+                      </div>
+                      <div class="flex flex-col min-w-0">
+                        <p
+                          class="font-label-md text-label-md text-on-surface font-semibold truncate"
+                        >
+                          Lecture_03_Stack_Queue_Recursion.pdf
+                        </p>
+                        <p
+                          class="font-body-sm text-body-sm text-on-surface-variant truncate"
+                        >
+                          15 khái niệm cốt lõi
+                        </p>
+                      </div>
+                    </div>
+                    <span
+                      class="font-label-sm text-label-sm text-secondary flex-shrink-0 px-2 py-0.5 rounded-full bg-secondary-container/40"
+                      >Đã kết nối</span
+                    >
+                  </div>
+                  <div
+                    class="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low hover:bg-surface-container transition-all group"
+                  >
+                    <div class="flex items-center gap-3 min-w-0">
+                      <div
+                        class="w-8 h-8 rounded-lg bg-surface-container-lowest flex items-center justify-center text-tertiary-container group-hover:bg-tertiary-container group-hover:text-on-primary transition-colors flex-shrink-0 shadow-sm"
+                      >
+                        <span class="material-symbols-outlined text-[18px]"
+                          >picture_as_pdf</span
+                        >
+                      </div>
+                      <div class="flex flex-col min-w-0">
+                        <p
+                          class="font-label-md text-label-md text-on-surface font-semibold truncate"
+                        >
+                          Lecture_06_Binary_Trees.pdf
+                        </p>
+                        <p
+                          class="font-body-sm text-body-sm text-on-tertiary-fixed-variant truncate"
+                        >
+                          Mới nạp · Cần đồng bộ
+                        </p>
+                      </div>
+                    </div>
+                    <span
+                      class="font-label-sm text-label-sm text-tertiary-fixed-dim flex-shrink-0 px-2 py-0.5 rounded-full bg-tertiary-fixed/30 font-semibold"
+                      >Cần ôn tập</span
+                    >
                   </div>
                 </div>
               </div>
+              <!-- Action Footer -->
+              <button
+                class="w-full mt-3 py-2.5 rounded-xl bg-surface-container-low text-primary font-title text-title flex items-center justify-center gap-2 hover:bg-surface-container transition-colors shadow-sm"
+              >
+                <span class="material-symbols-outlined text-[18px]"
+                  >add_circle</span
+                >
+                <span>Tải thêm PDF / PPTX</span>
+              </button>
             </div>
-            <!-- AI Companion Diagnostics Banner -->
-            <div class="mt-3 p-3 rounded-xl bg-surface-container flex items-start gap-2.5">
-              <span class="material-symbols-outlined text-primary text-[20px] flex-shrink-0 mt-0.5">psychology</span>
-              <div class="flex flex-col">
-                <span class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider">Ghi chú từ AI
-                  Companion</span>
-                <p class="font-body-sm text-body-sm text-on-surface italic mt-0.5 leading-snug">
-                  “Bạn thường nhầm lẫn thứ tự duyệt giữa Preorder (NLR) và Inorder (LNR) ở các cây con phân nhánh phức
-                  tạp.”
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- RIGHT COLUMN: Recent Quiz & Progress -->
-          <div
-            class="flex flex-col bg-surface-container-lowest rounded-2xl p-space-md shadow-sm overflow-hidden justify-between">
-            <div class="flex flex-col min-h-0 flex-1">
-              <div class="flex items-center justify-between pb-3">
-                <div class="flex items-center gap-2">
-                  <span class="material-symbols-outlined text-primary text-[20px]">quiz</span>
-                  <h2 class="font-title text-title text-on-surface font-bold">Bài kiểm tra gần nhất</h2>
-                </div>
-                <span class="font-label-sm text-label-sm text-on-surface-variant">Hôm qua, 21:40</span>
-              </div>
-              <!-- Big Score Display & Diagnostics -->
-              <div
-                class="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-container-low text-center">
-                <div class="flex items-baseline gap-1">
-                  <span class="font-display text-display text-primary font-extrabold leading-none">8</span>
-                  <span class="font-headline-lg text-headline-lg text-on-surface-variant leading-none font-medium">/
-                    10</span>
+            <!-- CENTER COLUMN: Weak Concepts -->
+            <div
+              class="flex flex-col bg-surface-container-lowest rounded-2xl p-space-md shadow-sm overflow-hidden justify-between"
+            >
+              <div class="flex flex-col min-h-0 flex-1">
+                <div class="flex items-center justify-between pb-3">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="material-symbols-outlined text-error text-[20px]"
+                      >crisis_alert</span
+                    >
+                    <h2 class="font-title text-title text-on-surface font-bold">
+                      Điểm yếu phát hiện
+                    </h2>
+                  </div>
                   <span
-                    class="ml-2 font-label-md text-label-md text-secondary bg-secondary-container/40 px-2 py-0.5 rounded-full font-bold">80%
-                    Đạt</span>
+                    class="font-label-sm text-label-sm bg-error-container/60 text-on-error-container font-semibold px-2 py-0.5 rounded-full"
+                    >3 chủ đề</span
+                  >
                 </div>
-                <p class="font-body-sm text-body-sm text-error mt-2 font-medium">Làm sai 2 câu về duyệt cây Preorder</p>
-                <!-- Mini SVG Progress Sparkline -->
-                <div class="w-full mt-3 pt-2">
-                  <svg class="w-full h-8 overflow-visible" fill="none" viewbox="0 0 200 32">
-                    <path class="text-primary" d="M0,24 C40,24 50,14 80,18 C110,22 130,6 160,10 C180,12 190,4 200,4"
-                      stroke="currentColor" stroke-linecap="round" stroke-width="2.5"></path>
-                    <circle class="text-primary fill-current" cx="200" cy="4" r="4"></circle>
-                  </svg>
+                <!-- Concept list -->
+                <div
+                  class="flex flex-col gap-2.5 overflow-hidden flex-1 justify-start"
+                >
+                  <!-- Concept 1 -->
+                  <div
+                    class="p-3 rounded-xl bg-surface-container-low flex flex-col gap-2"
+                  >
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <div
+                          class="w-2.5 h-2.5 rounded-full bg-error animate-pulse"
+                        ></div>
+                        <span
+                          class="font-title text-title text-on-surface font-semibold"
+                          >Tree Traversal</span
+                        >
+                      </div>
+                      <span
+                        class="font-headline-sm text-headline-sm text-error font-bold leading-none"
+                        >32%</span
+                      >
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span
+                        class="font-body-sm text-body-sm text-error leading-none"
+                        >Rất yếu — Sai 4/6 câu gần đây</span
+                      >
+                      <button
+                        class="px-2.5 py-1 rounded-lg bg-error text-on-error font-label-sm text-label-sm font-semibold hover:opacity-95 transition-opacity"
+                      >
+                        Ôn tập ngay
+                      </button>
+                    </div>
+                  </div>
+                  <!-- Concept 2 -->
+                  <div
+                    class="p-3 rounded-xl bg-surface-container-low flex flex-col gap-2"
+                  >
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <div
+                          class="w-2.5 h-2.5 rounded-full bg-tertiary-container"
+                        ></div>
+                        <span
+                          class="font-title text-title text-on-surface font-semibold"
+                          >Queue Layout</span
+                        >
+                      </div>
+                      <span
+                        class="font-headline-sm text-headline-sm text-tertiary-container font-bold leading-none"
+                        >45%</span
+                      >
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span
+                        class="font-body-sm text-body-sm text-on-tertiary-fixed-variant leading-none"
+                        >Mức độ hiểu: Trung bình</span
+                      >
+                      <button
+                        class="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-colors"
+                      >
+                        Luyện tập
+                      </button>
+                    </div>
+                  </div>
+                  <!-- Concept 3 -->
+                  <div
+                    class="p-3 rounded-xl bg-surface-container-low flex flex-col gap-2"
+                  >
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-2">
+                        <div
+                          class="w-2.5 h-2.5 rounded-full bg-secondary"
+                        ></div>
+                        <span
+                          class="font-title text-title text-on-surface font-semibold"
+                          >Recursion Stack</span
+                        >
+                      </div>
+                      <span
+                        class="font-headline-sm text-headline-sm text-secondary font-bold leading-none"
+                        >62%</span
+                      >
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span
+                        class="font-body-sm text-body-sm text-on-surface-variant leading-none"
+                        >Mức độ hiểu: Khá</span
+                      >
+                      <button
+                        class="px-2.5 py-1 rounded-lg bg-surface-container text-on-surface font-label-sm text-label-sm font-semibold hover:bg-surface-container-high transition-colors"
+                      >
+                        Luyện tập
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <!-- Quick Metircs Tile -->
-              <div class="grid grid-cols-2 gap-2 mt-3">
-                <div class="p-2.5 rounded-xl bg-surface-container flex flex-col justify-center">
-                  <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Thời gian TB</span>
-                  <span class="font-headline-sm text-headline-sm text-on-surface font-bold mt-0.5">42s <span
-                      class="font-body-sm text-body-sm text-on-surface-variant font-normal">/ câu</span></span>
-                </div>
-                <div class="p-2.5 rounded-xl bg-surface-container flex flex-col justify-center">
-                  <span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Chuỗi học</span>
-                  <span class="font-headline-sm text-headline-sm text-on-surface font-bold mt-0.5">3 ngày <span
-                      class="font-body-sm text-body-sm text-secondary font-normal">liên tục</span></span>
+              <!-- AI Companion Diagnostics Banner -->
+              <div
+                class="mt-3 p-3 rounded-xl bg-surface-container flex items-start gap-2.5"
+              >
+                <span
+                  class="material-symbols-outlined text-primary text-[20px] flex-shrink-0 mt-0.5"
+                  >psychology</span
+                >
+                <div class="flex flex-col">
+                  <span
+                    class="font-label-sm text-label-sm text-primary font-bold uppercase tracking-wider"
+                    >Ghi chú từ AI Companion</span
+                  >
+                  <p
+                    class="font-body-sm text-body-sm text-on-surface italic mt-0.5 leading-snug"
+                  >
+                    “Bạn thường nhầm lẫn thứ tự duyệt giữa Preorder (NLR) và
+                    Inorder (LNR) ở các cây con phân nhánh phức tạp.”
+                  </p>
                 </div>
               </div>
             </div>
-            <!-- Action Footer -->
-            <button
-              class="w-full mt-3 py-2.5 rounded-xl bg-primary text-on-primary font-title text-title flex items-center justify-center gap-2 hover:bg-primary-container shadow-sm transition-all group">
-              <span>Làm lại bài kiểm tra khác (Take Quiz)</span>
-              <span
-                class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-            </button>
+            <!-- RIGHT COLUMN: Recent Quiz & Progress -->
+            <div
+              class="flex flex-col bg-surface-container-lowest rounded-2xl p-space-md shadow-sm overflow-hidden justify-between"
+            >
+              <div class="flex flex-col min-h-0 flex-1">
+                <div class="flex items-center justify-between pb-3">
+                  <div class="flex items-center gap-2">
+                    <span
+                      class="material-symbols-outlined text-primary text-[20px]"
+                      >quiz</span
+                    >
+                    <h2 class="font-title text-title text-on-surface font-bold">
+                      Bài kiểm tra gần nhất
+                    </h2>
+                  </div>
+                  <span
+                    class="font-label-sm text-label-sm text-on-surface-variant"
+                    >Hôm qua, 21:40</span
+                  >
+                </div>
+                <!-- Big Score Display & Diagnostics -->
+                <div
+                  class="flex flex-col items-center justify-center p-4 rounded-xl bg-surface-container-low text-center"
+                >
+                  <div class="flex items-baseline gap-1">
+                    <span
+                      class="font-display text-display text-primary font-extrabold leading-none"
+                      >8</span
+                    >
+                    <span
+                      class="font-headline-lg text-headline-lg text-on-surface-variant leading-none font-medium"
+                      >/ 10</span
+                    >
+                    <span
+                      class="ml-2 font-label-md text-label-md text-secondary bg-secondary-container/40 px-2 py-0.5 rounded-full font-bold"
+                      >80% Đạt</span
+                    >
+                  </div>
+                  <p
+                    class="font-body-sm text-body-sm text-error mt-2 font-medium"
+                  >
+                    Làm sai 2 câu về duyệt cây Preorder
+                  </p>
+                  <!-- Mini SVG Progress Sparkline -->
+                  <div class="w-full mt-3 pt-2">
+                    <svg
+                      class="w-full h-8 overflow-visible"
+                      fill="none"
+                      viewbox="0 0 200 32"
+                    >
+                      <path
+                        class="text-primary"
+                        d="M0,24 C40,24 50,14 80,18 C110,22 130,6 160,10 C180,12 190,4 200,4"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-width="2.5"
+                      ></path>
+                      <circle
+                        class="text-primary fill-current"
+                        cx="200"
+                        cy="4"
+                        r="4"
+                      ></circle>
+                    </svg>
+                  </div>
+                </div>
+                <!-- Quick Metircs Tile -->
+                <div class="grid grid-cols-2 gap-2 mt-3">
+                  <div
+                    class="p-2.5 rounded-xl bg-surface-container flex flex-col justify-center"
+                  >
+                    <span
+                      class="font-label-sm text-label-sm text-on-surface-variant font-medium"
+                      >Thời gian TB</span
+                    >
+                    <span
+                      class="font-headline-sm text-headline-sm text-on-surface font-bold mt-0.5"
+                      >42s
+                      <span
+                        class="font-body-sm text-body-sm text-on-surface-variant font-normal"
+                        >/ câu</span
+                      ></span
+                    >
+                  </div>
+                  <div
+                    class="p-2.5 rounded-xl bg-surface-container flex flex-col justify-center"
+                  >
+                    <span
+                      class="font-label-sm text-label-sm text-on-surface-variant font-medium"
+                      >Chuỗi học</span
+                    >
+                    <span
+                      class="font-headline-sm text-headline-sm text-on-surface font-bold mt-0.5"
+                      >3 ngày
+                      <span
+                        class="font-body-sm text-body-sm text-secondary font-normal"
+                        >liên tục</span
+                      ></span
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- Action Footer -->
+              <button
+                class="w-full mt-3 py-2.5 rounded-xl bg-primary text-on-primary font-title text-title flex items-center justify-center gap-2 hover:bg-primary-container shadow-sm transition-all group"
+              >
+                <span>Làm lại bài kiểm tra khác (Take Quiz)</span>
+                <span
+                  class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform"
+                  >arrow_forward</span
+                >
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    </main>
-  </div>
-</body>
-
+      </main>
+    </div>
+  </body>
 </html>

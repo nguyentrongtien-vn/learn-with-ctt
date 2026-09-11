@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { useApp } from '../../../context/AppContext';
-import Icon from '../../../components/ui/Icon';
+import React, { useState } from "react";
+import { useApp } from "../../../context/AppContext";
+import Icon from "../../../components/ui/Icon";
 
 export default function SessionDetailCard({ selectedSession }) {
   const { setActiveTab, handleJumpToQuestion } = useApp();
@@ -15,15 +15,15 @@ export default function SessionDetailCard({ selectedSession }) {
 
   const handleStartReview = () => {
     handleJumpToQuestion(2);
-    setActiveTab('quiz');
+    setActiveTab("quiz");
   };
 
   const session = selectedSession || {
-    title: 'Tree Traversal Review',
-    code: 'CS201 · Cấu trúc dữ liệu & Giải thuật',
-    time: '18:00 Hôm nay',
-    duration: '20 phút',
-    method: 'Spaced Repetition'
+    title: "Tree Traversal Review",
+    code: "CS201 · Cấu trúc dữ liệu & Giải thuật",
+    time: "18:00 Hôm nay",
+    duration: "20 phút",
+    method: "Spaced Repetition",
   };
 
   return (
@@ -41,7 +41,9 @@ export default function SessionDetailCard({ selectedSession }) {
         </div>
 
         <p className="font-body-sm text-[12px] text-on-surface-variant leading-relaxed">
-          Thuật toán tự động tìm các khung giờ trống &gt; 30 phút giữa các tiết học tại Bách Khoa để chèn các phiên bù đắp lỗ hổng nhận thức.
+          Thuật toán tự động tìm các khung giờ trống &gt; 30 phút giữa các tiết
+          học tại Đại học Quốc tế Miền Đông để chèn các phiên bù đắp lỗ hổng
+          nhận thức.
         </p>
 
         <button
@@ -49,8 +51,8 @@ export default function SessionDetailCard({ selectedSession }) {
           onClick={handleLockSchedule}
           className={`w-full py-2.5 px-3 rounded-2xl font-label-md text-label-md font-bold transition-all flex items-center justify-center gap-2 shadow-xs active:scale-95 border ${
             lockedSuccess
-              ? 'bg-secondary text-on-secondary border-secondary'
-              : 'bg-surface-container-low hover:bg-surface-container text-primary border-surface-container-high/40'
+              ? "bg-secondary text-on-secondary border-secondary"
+              : "bg-surface-container-low hover:bg-surface-container text-primary border-surface-container-high/40"
           }`}
         >
           {lockedSuccess ? (
@@ -78,7 +80,7 @@ export default function SessionDetailCard({ selectedSession }) {
               Chi tiết phiên học
             </span>
             <span className="px-2.5 py-0.5 rounded-full bg-surface-container-lowest text-primary text-[11px] font-extrabold shadow-xs">
-              {session.time || '18:00 Hôm nay'}
+              {session.time || "18:00 Hôm nay"}
             </span>
           </div>
 
@@ -93,11 +95,11 @@ export default function SessionDetailCard({ selectedSession }) {
             <div className="flex items-center gap-2 mt-2.5 text-[11px] text-on-primary/90 flex-wrap">
               <span className="flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded-md font-semibold">
                 <Icon name="timer" size={13} />
-                {session.duration || '20 phút'}
+                {session.duration || "20 phút"}
               </span>
               <span className="flex items-center gap-1 bg-white/10 px-2 py-0.5 rounded-md font-semibold">
                 <Icon name="psychology" size={13} />
-                {session.method || 'Spaced Repetition'}
+                {session.method || "Spaced Repetition"}
               </span>
             </div>
           </div>

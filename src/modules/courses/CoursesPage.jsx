@@ -1,9 +1,9 @@
-import React from 'react';
-import { useApp } from '../../context/AppContext';
-import CourseCard from './components/CourseCard';
-import SyncSISModal from './components/SyncSISModal';
-import AddCourseModal from './components/AddCourseModal';
-import Icon from '../../components/ui/Icon';
+import React from "react";
+import { useApp } from "../../context/AppContext";
+import CourseCard from "./components/CourseCard";
+import SyncSISModal from "./components/SyncSISModal";
+import AddCourseModal from "./components/AddCourseModal";
+import Icon from "../../components/ui/Icon";
 
 export default function CoursesPage() {
   const {
@@ -12,7 +12,7 @@ export default function CoursesPage() {
     syncModalOpen,
     setSyncModalOpen,
     addCourseModalOpen,
-    setAddCourseModalOpen
+    setAddCourseModalOpen,
   } = useApp();
 
   const handleAddCourse = (newCourse) => {
@@ -33,7 +33,8 @@ export default function CoursesPage() {
             </span>
           </div>
           <p className="text-[13px] text-on-surface-variant mt-1">
-            {courses.length} môn học chính khóa · K65 Công nghệ Thông tin · Đại học Bách Khoa Hà Nội
+            {courses.length} môn học chính khóa · K14 Kỹ Thuật Phần Mềm · Đại
+            học quốc tế Miền Đông
           </p>
         </div>
 
@@ -78,4 +79,3 @@ export default function CoursesPage() {
     </div>
   );
 }
-

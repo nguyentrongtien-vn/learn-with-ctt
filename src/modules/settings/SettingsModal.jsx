@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { useApp } from '../../context/AppContext';
-import Modal from '../../components/ui/Modal';
-import Button from '../../components/ui/Button';
-import Icon from '../../components/ui/Icon';
+import React, { useState } from "react";
+import { useApp } from "../../context/AppContext";
+import Modal from "../../components/ui/Modal";
+import Button from "../../components/ui/Button";
+import Icon from "../../components/ui/Icon";
 
 export default function SettingsModal({ isOpen, onClose }) {
   const { user, setUser, isDarkMode, toggleDarkMode } = useApp();
 
-  const [aiStyle, setAiStyle] = useState('socratic'); // 'socratic' | 'direct'
+  const [aiStyle, setAiStyle] = useState("socratic"); // 'socratic' | 'direct'
   const [remindersEnabled, setRemindersEnabled] = useState(true);
   const [googleCalendarSync, setGoogleCalendarSync] = useState(true);
   const [savedNotice, setSavedNotice] = useState(false);
@@ -43,7 +43,7 @@ export default function SettingsModal({ isOpen, onClose }) {
               </span>
             </div>
             <p className="font-body-sm text-body-sm text-on-surface-variant truncate">
-              tien.nt205214@sis.EIU.edu.vn · {user.school}
+              tien.nguyentrong.cit24@eiu.edu.vn · {user.school}
             </p>
           </div>
         </div>
@@ -56,36 +56,44 @@ export default function SettingsModal({ isOpen, onClose }) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <button
               type="button"
-              onClick={() => setAiStyle('socratic')}
-              className={`p-3 rounded-xl border text-left transition-all ${aiStyle === 'socratic'
-                  ? 'border-primary bg-primary-container/10 ring-1 ring-primary/40'
-                  : 'border-surface-container-high bg-surface-container-low'
-                }`}
+              onClick={() => setAiStyle("socratic")}
+              className={`p-3 rounded-xl border text-left transition-all ${
+                aiStyle === "socratic"
+                  ? "border-primary bg-primary-container/10 ring-1 ring-primary/40"
+                  : "border-surface-container-high bg-surface-container-low"
+              }`}
             >
               <div className="flex items-center justify-between mb-1">
-                <span className="font-label-md font-bold text-on-surface">Socratic Mentor</span>
+                <span className="font-label-md font-bold text-on-surface">
+                  Socratic Mentor
+                </span>
                 <span className="text-[10px] px-1.5 py-0.2 rounded bg-primary-container text-on-primary font-bold">
                   Khuyên dùng
                 </span>
               </div>
               <p className="text-[11px] text-on-surface-variant leading-tight">
-                Không giải thay, đặt câu hỏi gợi mở để người học tự khám phá bản chất thuật toán.
+                Không giải thay, đặt câu hỏi gợi mở để người học tự khám phá bản
+                chất thuật toán.
               </p>
             </button>
 
             <button
               type="button"
-              onClick={() => setAiStyle('direct')}
-              className={`p-3 rounded-xl border text-left transition-all ${aiStyle === 'direct'
-                  ? 'border-primary bg-primary-container/10 ring-1 ring-primary/40'
-                  : 'border-surface-container-high bg-surface-container-low'
-                }`}
+              onClick={() => setAiStyle("direct")}
+              className={`p-3 rounded-xl border text-left transition-all ${
+                aiStyle === "direct"
+                  ? "border-primary bg-primary-container/10 ring-1 ring-primary/40"
+                  : "border-surface-container-high bg-surface-container-low"
+              }`}
             >
               <div className="flex items-center justify-between mb-1">
-                <span className="font-label-md font-bold text-on-surface">Direct Answer</span>
+                <span className="font-label-md font-bold text-on-surface">
+                  Direct Answer
+                </span>
               </div>
               <p className="text-[11px] text-on-surface-variant leading-tight">
-                Cung cấp đáp án và lời giải chi tiết ngay lập tức cho các câu hỏi ôn tập nhanh.
+                Cung cấp đáp án và lời giải chi tiết ngay lập tức cho các câu
+                hỏi ôn tập nhanh.
               </p>
             </button>
           </div>
@@ -103,7 +111,7 @@ export default function SettingsModal({ isOpen, onClose }) {
                 Nhắc nhở phiên ôn tập AI trước 15 phút
               </span>
               <span className="text-[11px] text-on-surface-variant">
-                Gửi thông báo đẩy về thiết bị di động
+                Gửi thông báo đến thiết bị di động của bạn
               </span>
             </div>
             <input
@@ -134,7 +142,11 @@ export default function SettingsModal({ isOpen, onClose }) {
           <label className="flex items-center justify-between p-2.5 rounded-xl bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
             <div className="flex flex-col">
               <span className="font-label-md text-label-md font-semibold text-on-surface flex items-center gap-1.5">
-                <Icon name={isDarkMode ? 'dark_mode' : 'light_mode'} size={18} className="text-primary" />
+                <Icon
+                  name={isDarkMode ? "dark_mode" : "light_mode"}
+                  size={18}
+                  className="text-primary"
+                />
                 Chế độ nền tối (Dark mode)
               </span>
               <span className="text-[11px] text-on-surface-variant">

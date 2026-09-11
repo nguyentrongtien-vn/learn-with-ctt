@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Modal from '../../../components/ui/Modal';
-import Button from '../../../components/ui/Button';
-import Icon from '../../../components/ui/Icon';
+import React, { useState } from "react";
+import Modal from "../../../components/ui/Modal";
+import Button from "../../../components/ui/Button";
+import Icon from "../../../components/ui/Icon";
 
 export default function SyncSISModal({ isOpen, onClose }) {
   const [syncing, setSyncing] = useState(false);
@@ -28,7 +28,8 @@ export default function SyncSISModal({ isOpen, onClose }) {
     >
       <div className="flex flex-col gap-4">
         <p className="font-body-md text-body-md text-on-surface-variant">
-          Hệ thống sẽ kết nối với tài khoản CTT Bách Khoa để cập nhật thời khóa biểu, danh sách lớp học phần và điểm quá trình kỳ 2024.2.
+          Hệ thống sẽ kết nối với tài khoản CTT Quốc tế Miền Đông để cập nhật
+          thời khóa biểu, danh sách lớp học phần và điểm quá trình kỳ 2024.2.
         </p>
 
         <div className="p-3.5 rounded-xl bg-surface-container-low flex flex-col gap-2">
@@ -40,12 +41,18 @@ export default function SyncSISModal({ isOpen, onClose }) {
             </span>
           </div>
           <div className="flex items-center justify-between text-label-sm">
-            <span className="text-on-surface-variant">Lần đồng bộ gần nhất:</span>
-            <span className="font-medium text-on-surface">22/10/2024, 08:30</span>
+            <span className="text-on-surface-variant">
+              Lần đồng bộ gần nhất:
+            </span>
+            <span className="font-medium text-on-surface">
+              22/10/2024, 08:30
+            </span>
           </div>
           <div className="flex items-center justify-between text-label-sm">
             <span className="text-on-surface-variant">Mã sinh viên:</span>
-            <span className="font-medium text-on-surface">20205214 · Nguyễn Trọng Tiến</span>
+            <span className="font-medium text-on-surface">
+              20205214 · Nguyễn Trọng Tiến
+            </span>
           </div>
         </div>
 
@@ -57,7 +64,12 @@ export default function SyncSISModal({ isOpen, onClose }) {
         ) : null}
 
         <div className="flex items-center justify-end gap-2 pt-3 border-t border-surface-container-high/60">
-          <Button variant="surface" size="md" onClick={onClose} disabled={syncing}>
+          <Button
+            variant="surface"
+            size="md"
+            onClick={onClose}
+            disabled={syncing}
+          >
             Đóng
           </Button>
           <Button
@@ -67,7 +79,7 @@ export default function SyncSISModal({ isOpen, onClose }) {
             loading={syncing}
             onClick={handleSync}
           >
-            {syncing ? 'Đang đồng bộ...' : 'Bắt đầu đồng bộ'}
+            {syncing ? "Đang đồng bộ..." : "Bắt đầu đồng bộ"}
           </Button>
         </div>
       </div>

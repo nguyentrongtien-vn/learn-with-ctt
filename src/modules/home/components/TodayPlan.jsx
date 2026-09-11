@@ -1,6 +1,6 @@
-import React from 'react';
-import { useApp } from '../../../context/AppContext';
-import Icon from '../../../components/ui/Icon';
+import React from "react";
+import { useApp } from "../../../context/AppContext";
+import Icon from "../../../components/ui/Icon";
 
 export default function TodayPlan() {
   const { setActiveTab } = useApp();
@@ -46,7 +46,7 @@ export default function TodayPlan() {
                   </span>
                 </div>
                 <p className="font-body-sm text-[11px] text-on-surface-variant truncate mt-0.5">
-                  09:30 - 11:30 · Tiết chính khóa Bách Khoa
+                  09:30 - 11:30 · Tiết chính khóa Quốc tế Miền Đông
                 </p>
               </div>
             </div>
@@ -79,7 +79,7 @@ export default function TodayPlan() {
             </div>
             <button
               type="button"
-              onClick={() => setActiveTab('quiz')}
+              onClick={() => setActiveTab("quiz")}
               className="px-3 py-1.5 rounded-xl bg-primary-container hover:bg-primary text-on-primary font-label-sm text-label-sm font-bold shrink-0 shadow-xs active:scale-95 transition-all"
             >
               Bắt đầu
@@ -114,7 +114,7 @@ export default function TodayPlan() {
       <div className="pt-3 border-t border-surface-container-high/40 shrink-0">
         <button
           type="button"
-          onClick={() => setActiveTab('study-calendar')}
+          onClick={() => setActiveTab("study-calendar")}
           className="w-full py-2 rounded-xl bg-surface-container-low hover:bg-surface-container text-primary font-label-md text-label-md font-bold flex items-center justify-center gap-1.5 transition-all active:scale-98 border border-surface-container-high/40"
         >
           <span>Mở toàn bộ thời khóa biểu tuần</span>

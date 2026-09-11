@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
-import CalendarHeader from './components/CalendarHeader';
-import WeeklyGrid from './components/WeeklyGrid';
-import AgendaListView from './components/AgendaListView';
-import SessionDetailModal from './components/SessionDetailModal';
-import Icon from '../../components/ui/Icon';
+import React, { useState } from "react";
+import CalendarHeader from "./components/CalendarHeader";
+import WeeklyGrid from "./components/WeeklyGrid";
+import AgendaListView from "./components/AgendaListView";
+import SessionDetailModal from "./components/SessionDetailModal";
+import Icon from "../../components/ui/Icon";
 
 export default function StudyCalendarPage() {
   const [selectedSession, setSelectedSession] = useState(null);
-  const [activeView, setActiveView] = useState('grid'); // 'grid' | 'list'
+  const [activeView, setActiveView] = useState("grid"); // 'grid' | 'list'
 
   const handleJumpToday = () => {
-    setActiveView('grid');
+    setActiveView("grid");
   };
 
   return (
@@ -23,7 +23,7 @@ export default function StudyCalendarPage() {
       />
 
       {/* 2. Main Calendar: Weekly Grid (Google Calendar layout) or Agenda List */}
-      {activeView === 'grid' ? (
+      {activeView === "grid" ? (
         <WeeklyGrid onSelectSession={setSelectedSession} />
       ) : (
         <AgendaListView onSelectSession={setSelectedSession} />
@@ -56,7 +56,7 @@ export default function StudyCalendarPage() {
 
         <div className="flex items-center gap-1.5 text-primary font-semibold text-[12px]">
           <Icon name="verified" size={16} />
-          <span>Đồng bộ tự động với cổng SIS Bách Khoa</span>
+          <span>Đồng bộ tự động với không gian EIU</span>
         </div>
       </div>
 
