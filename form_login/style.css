@@ -1,0 +1,117 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+
+  background: url("./backgroundd_2.png") center/cover no-repeat;
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.login-container {
+  width: 550px;
+  padding: 30px;
+
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.heading-title {
+  text-align: center;
+  font-size: 45px;
+}
+
+.title {
+  font-size: 20px;
+  text-align: center;
+  margin: 0 auto;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid;
+  animation: typing 3s ease-in-out infinite alternate;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 23ch;
+  }
+}
+
+@keyframes deleting {
+  from {
+    width: 23ch;
+  }
+
+  to {
+    width: 0;
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 420px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+input {
+  width: 420px;
+  height: 30px;
+
+  font-size: 16px;
+  background: rgb(255, 255, 255, 0.2);
+
+  border-radius: 5px;
+}
+
+button {
+  width: 420px;
+  height: 35px;
+  font-size: 18px;
+  color: rgb(151, 3, 3);
+  border-radius: 5px;
+  background: rgb(255, 255, 255, 0.6);
+}
+
+button:hover {
+  border-color: white;
+}
+
+.create-account {
+  color: rgb(177, 3, 3);
+}
+
+.wrong-input {
+  font-size: 15px;
+  color: rgb(177, 3, 3);
+}
