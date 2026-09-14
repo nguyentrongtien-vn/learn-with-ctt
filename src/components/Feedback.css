@@ -1,0 +1,33 @@
+body {
+  background-color: white;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.feedback-page {
+  min-height: 100vh;
+  background-color: rgba(255, 255, 255);
+}
+
+.feedback-card {
+  border: 1px solid #dbe3ee;
+  border-radius: 1rem;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14);
+}
+
+.feedback-page textarea {
+  color: #000;
+  caret-color: #000;
+}
+
+.dark .feedback-page textarea {
+  color: #000;
+  caret-color: #000;
+}
+
+.feedback-page textarea::placeholder {
+  color: #94a3b8;
+}

@@ -1,14 +1,17 @@
-* {
+.login-page,
+.login-page * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
+.login-page {
   min-height: 100vh;
-
-  background: url("./backgroundd_2.png") center/cover no-repeat;
-  backdrop-filter: blur(3px);
+  padding: 24px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)),
+    url("./backgroundd_2.png") center/cover no-repeat;
+  color: #000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -19,27 +22,26 @@ body {
     sans-serif;
 }
 
-.login-container {
-  width: 550px;
-  padding: 30px;
-
-  background: rgba(255, 255, 255, 0.5);
+.login-page .login-container {
+  width: min(550px, 100%);
+  padding: 34px 34px 38px;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.6);
   border-radius: 15px;
-
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 15px;
-
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.42);
 }
 
-.heading-title {
+.login-page .heading-title {
   text-align: center;
-  font-size: 45px;
+  font-size: clamp(2rem, 5vw, 45px);
+  line-height: 1.15;
 }
 
-.title {
+.login-page .title {
   font-size: 20px;
   text-align: center;
   margin: 0 auto;
@@ -70,32 +72,41 @@ body {
   }
 }
 
-.input-group {
+.login-page .input-group {
   display: flex;
   flex-direction: column;
   gap: 5px;
-  width: 420px;
+  width: 100%;
 }
 
-form {
+.login-page form {
+  width: min(420px, 100%);
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
 }
 
-input {
-  width: 420px;
+.login-page input:not([type="checkbox"]) {
+  width: 100%;
   height: 30px;
-
+  padding: 0 6px;
   font-size: 16px;
+  color: #000;
   background: rgb(255, 255, 255, 0.2);
-
+  border: 1px solid rgba(0, 0, 0, 0.55);
   border-radius: 5px;
 }
 
-button {
-  width: 420px;
+.login-page input:not([type="checkbox"]):focus {
+  outline: none;
+  border-color: #000;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.12);
+}
+
+.login-page button {
+  width: 100%;
   height: 35px;
   font-size: 18px;
   color: rgb(151, 3, 3);
@@ -103,15 +114,30 @@ button {
   background: rgb(255, 255, 255, 0.6);
 }
 
-button:hover {
+.login-page button:hover {
   border-color: white;
 }
 
-.create-account {
+.login-page .create-account {
   color: rgb(177, 3, 3);
 }
 
-.wrong-input {
+.login-page .wrong-input {
   font-size: 15px;
   color: rgb(177, 3, 3);
+  text-align: center;
+}
+
+@media (max-width: 520px) {
+  .login-page {
+    padding: 15px;
+  }
+
+  .login-page .login-container {
+    padding: 28px 20px 32px;
+  }
+
+  .login-page .title {
+    font-size: 18px;
+  }
 }
