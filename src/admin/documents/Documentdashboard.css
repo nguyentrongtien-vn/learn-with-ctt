@@ -282,17 +282,20 @@
   border-radius: 999px;
 }
 
-.pill {
+.document-status-pill {
   display: inline-flex;
   align-items: center;
   gap: 5px;
   font-size: 12px;
+  line-height: 1;
   font-weight: 600;
   padding: 4px 10px;
   border-radius: 999px;
+  white-space: nowrap;
+  vertical-align: middle;
 }
 
-.pill::before {
+.document-status-pill::before {
   content: "";
   width: 6px;
   height: 6px;
@@ -300,17 +303,17 @@
   background: currentColor;
 }
 
-.pill--verified {
+.document-status-pill--verified {
   background: var(--green-bg);
   color: var(--green-fg);
 }
 
-.pill--pending {
+.document-status-pill--pending {
   background: var(--yellow-bg);
   color: var(--yellow-fg);
 }
 
-.pill--rejected {
+.document-status-pill--rejected {
   background: var(--red-bg);
   color: var(--red-fg);
 }

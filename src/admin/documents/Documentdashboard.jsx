@@ -227,7 +227,7 @@ function StatCard({ label, value, sub, unit }) {
 }
 
 function StatusPill({ status }) {
-  return <span className={`pill pill--${status}`}>{STATUS_LABEL[status]}</span>;
+  return <span className={`document-status-pill document-status-pill--${status}`}>{STATUS_LABEL[status] ?? "Không xác định"}</span>;
 }
 
 function FileTypeBadge({ type }) {
