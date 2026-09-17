@@ -11,7 +11,7 @@ export default function ChatStream({ onSelectChip }) {
   }, [chatMessages, isAiTyping]);
 
   return (
-    <div className="relative z-10 flex-1 flex flex-col gap-3 py-2 overflow-y-auto pr-1">
+    <div className="relative z-10 flex-1 min-h-0 flex flex-col gap-3 py-2 overflow-y-auto pr-1">
       {chatMessages.map((msg) => {
         const isUser = msg.sender === 'user';
 

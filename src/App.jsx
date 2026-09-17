@@ -14,34 +14,36 @@ import Feedback from "./components/Feedback";
 import Admin from "./Admin/Admin";
 
 export default function App() {
-  const { activeTab, settingsModalOpen, setSettingsModalOpen } = useApp();
+  const {
+    activeTab,
+    quizMode,
+    settingsModalOpen,
+    setSettingsModalOpen,
+  } = useApp();
+  const path = window.location.pathname;
 
-  if (
-    window.location.pathname === "/admin" ||
-    window.location.pathname === "/admin/"
-  ) {
+  if (path === "/admin" || path === "/admin/") {
     return <Admin />;
   }
 
-  if (
-    window.location.pathname === "/login" ||
-    window.location.pathname === "/login/"
-  ) {
+  if (path === "/login" || path === "/login/") {
     return <Login />;
   }
 
-  if (
-    window.location.pathname === "/create-account" ||
-    window.location.pathname === "/create-account/"
-  ) {
+  if (path === "/create-account" || path === "/create-account/") {
     return <CreateAccount />;
   }
 
-  if (
-    window.location.pathname === "/Feedback" ||
-    window.location.pathname === "/Feedback/"
-  ) {
+  if (path === "/Feedback" || path === "/Feedback/") {
     return <Feedback />;
+  }
+
+  if (sessionStorage.getItem("ctt-authenticated") !== "true") {
+    return <Login />;
+  }
+
+  if (activeTab === "quiz" && quizMode === "exam") {
+    return <QuizPage />;
   }
 
   const renderActiveView = () => {

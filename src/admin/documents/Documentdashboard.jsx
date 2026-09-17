@@ -218,7 +218,11 @@ function StatCard({ label, value, sub, unit }) {
     <div className="stat-card">
       <div className="stat-card__top">
         <span className="stat-card__label">{label}</span>
-        <span className={`stat-card__badge ${label === "Đang xử lý" ? "stat-card__badge--pending" : ""}`}>{sub}</span>
+        <span
+          className={`stat-card__badge ${label === "Đang xử lý" ? "stat-card__badge--pending" : ""}`}
+        >
+          {sub}
+        </span>
       </div>
       <div className="stat-card__value">{value}</div>
       <div className="stat-card__unit">{unit}</div>
@@ -227,7 +231,11 @@ function StatCard({ label, value, sub, unit }) {
 }
 
 function StatusPill({ status }) {
-  return <span className={`document-status-pill document-status-pill--${status}`}>{STATUS_LABEL[status] ?? "Không xác định"}</span>;
+  return (
+    <span className={`document-status-pill document-status-pill--${status}`}>
+      {STATUS_LABEL[status] ?? "Không xác định"}
+    </span>
+  );
 }
 
 function FileTypeBadge({ type }) {
@@ -293,22 +301,38 @@ export default function DocumentDashboard() {
   const [message, setMessage] = useState("");
 
   const filteredDocuments = documents.filter((doc) => {
-    const matchesQuery = doc.name.toLowerCase().includes(query.toLowerCase()) || doc.owner.toLowerCase().includes(query.toLowerCase());
+    const matchesQuery =
+      doc.name.toLowerCase().includes(query.toLowerCase()) ||
+      doc.owner.toLowerCase().includes(query.toLowerCase());
     const matchesStatus = statusFilter === "all" || doc.status === statusFilter;
     const matchesType = typeFilter === "all" || doc.type === typeFilter;
     return matchesQuery && matchesStatus && matchesType;
   });
-  const totalPages = Math.max(1, Math.ceil(filteredDocuments.length / pageSize));
-  const visibleDocuments = filteredDocuments.slice((page - 1) * pageSize, page * pageSize);
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredDocuments.length / pageSize),
+  );
+  const visibleDocuments = filteredDocuments.slice(
+    (page - 1) * pageSize,
+    page * pageSize,
+  );
 
   const toggleRow = (id) =>
     setSelected((s) =>
       s.includes(id) ? s.filter((x) => x !== id) : [...s, id],
     );
 
-  const allSelected = visibleDocuments.length > 0 && visibleDocuments.every((doc) => selected.includes(doc.id));
+  const allSelected =
+    visibleDocuments.length > 0 &&
+    visibleDocuments.every((doc) => selected.includes(doc.id));
   const toggleAll = () =>
-    setSelected(allSelected ? selected.filter((id) => !visibleDocuments.some((doc) => doc.id === id)) : [...new Set([...selected, ...visibleDocuments.map((doc) => doc.id)])]);
+    setSelected(
+      allSelected
+        ? selected.filter(
+            (id) => !visibleDocuments.some((doc) => doc.id === id),
+          )
+        : [...new Set([...selected, ...visibleDocuments.map((doc) => doc.id)])],
+    );
 
   const showMessage = (text) => {
     setMessage(text);
@@ -319,9 +343,29 @@ export default function DocumentDashboard() {
     const file = event.target.files?.[0];
     if (!file) return;
     const extension = file.name.split(".").pop().toLowerCase();
-    const type = extension === "pdf" ? "PDF" : extension === "docx" ? "DOC" : extension === "pptx" ? "PPT" : null;
-    if (!type) { showMessage("Chỉ hỗ trợ file PDF, DOCX hoặc PPTX."); event.target.value = ""; return; }
-    const newDocument = { id: Date.now(), name: file.name, size: `${(file.size / 1024 / 1024).toFixed(1)} MB`, owner: "Admin", type, date: "Vừa xong", status: "pending", views: 0 };
+    const type =
+      extension === "pdf"
+        ? "PDF"
+        : extension === "docx"
+          ? "DOC"
+          : extension === "pptx"
+            ? "PPT"
+            : null;
+    if (!type) {
+      showMessage("Chỉ hỗ trợ file PDF, DOCX hoặc PPTX.");
+      event.target.value = "";
+      return;
+    }
+    const newDocument = {
+      id: Date.now(),
+      name: file.name,
+      size: `${(file.size / 1024 / 1024).toFixed(1)} MB`,
+      owner: "Admin",
+      type,
+      date: "Vừa xong",
+      status: "pending",
+      views: 0,
+    };
     setDocuments((current) => [newDocument, ...current]);
     setPage(1);
     showMessage(`${file.name} đang được xử lý.`);
@@ -330,7 +374,9 @@ export default function DocumentDashboard() {
 
   const handleDownload = (doc) => {
     const link = document.createElement("a");
-    link.href = URL.createObjectURL(new Blob([`Bản mô phỏng tài liệu: ${doc.name}`], { type: "text/plain" }));
+    link.href = URL.createObjectURL(
+      new Blob([`Bản mô phỏng tài liệu: ${doc.name}`], { type: "text/plain" }),
+    );
     link.download = doc.name;
     link.click();
     URL.revokeObjectURL(link.href);
@@ -350,7 +396,11 @@ export default function DocumentDashboard() {
           <label className="btn-primary upload-trigger">
             <Icon.Upload />
             Tải lên tài liệu
-            <input type="file" accept=".pdf,.docx,.pptx" onChange={handleUpload} />
+            <input
+              type="file"
+              accept=".pdf,.docx,.pptx"
+              onChange={handleUpload}
+            />
           </label>
         </header>
 
@@ -363,13 +413,41 @@ export default function DocumentDashboard() {
         <section className="toolbar">
           <div className="search-field">
             <Icon.Search className="search-field__icon" />
-            <input type="text" placeholder="Tìm kiếm theo tên tài liệu..." value={query} onChange={(event) => { setQuery(event.target.value); setPage(1); }} />
+            <input
+              type="text"
+              placeholder="Tìm kiếm theo tên tài liệu..."
+              value={query}
+              onChange={(event) => {
+                setQuery(event.target.value);
+                setPage(1);
+              }}
+            />
           </div>
-          <select className="select-field" value={statusFilter} onChange={(event) => { setStatusFilter(event.target.value); setPage(1); }}>
-            <option value="all">Tất cả trạng thái</option><option value="verified">Đã xác nhận</option><option value="pending">Đang xử lý</option><option value="rejected">Từ chối</option>
+          <select
+            className="select-field"
+            value={statusFilter}
+            onChange={(event) => {
+              setStatusFilter(event.target.value);
+              setPage(1);
+            }}
+          >
+            <option value="all">Tất cả trạng thái</option>
+            <option value="verified">Đã xác nhận</option>
+            <option value="pending">Đang xử lý</option>
+            <option value="rejected">Từ chối</option>
           </select>
-          <select className="select-field" value={typeFilter} onChange={(event) => { setTypeFilter(event.target.value); setPage(1); }}>
-            <option value="all">Tất cả định dạng</option><option value="PDF">PDF</option><option value="DOC">DOCX</option><option value="PPT">PPTX</option>
+          <select
+            className="select-field"
+            value={typeFilter}
+            onChange={(event) => {
+              setTypeFilter(event.target.value);
+              setPage(1);
+            }}
+          >
+            <option value="all">Tất cả định dạng</option>
+            <option value="PDF">PDF</option>
+            <option value="DOC">DOCX</option>
+            <option value="PPT">PPTX</option>
           </select>
         </section>
 
@@ -422,16 +500,44 @@ export default function DocumentDashboard() {
                   </td>
                   <td>{doc.views}</td>
                   <td className="col-actions">
-                    <button className="icon-btn" title="Xem" onClick={() => showMessage(`Đang mở ${doc.name}.`)}>
+                    <button
+                      className="icon-btn"
+                      title="Xem"
+                      onClick={() => showMessage(`Đang mở ${doc.name}.`)}
+                    >
                       <Icon.Eye />
                     </button>
-                    <button className="icon-btn" title="Tải xuống" onClick={() => handleDownload(doc)}>
+                    <button
+                      className="icon-btn"
+                      title="Tải xuống"
+                      onClick={() => handleDownload(doc)}
+                    >
                       <Icon.Download />
                     </button>
-                    <button className="icon-btn" title="Thêm" onClick={() => setOpenMenu(openMenu === doc.id ? null : doc.id)}>
+                    <button
+                      className="icon-btn"
+                      title="Thêm"
+                      onClick={() =>
+                        setOpenMenu(openMenu === doc.id ? null : doc.id)
+                      }
+                    >
                       <Icon.More />
                     </button>
-                    {openMenu === doc.id && <div className="document-row-menu"><button onClick={() => { setDocuments((current) => current.filter((item) => item.id !== doc.id)); setOpenMenu(null); showMessage("Đã xóa tài liệu."); }}>Xóa tài liệu</button></div>}
+                    {openMenu === doc.id && (
+                      <div className="document-row-menu">
+                        <button
+                          onClick={() => {
+                            setDocuments((current) =>
+                              current.filter((item) => item.id !== doc.id),
+                            );
+                            setOpenMenu(null);
+                            showMessage("Đã xóa tài liệu.");
+                          }}
+                        >
+                          Xóa tài liệu
+                        </button>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -439,18 +545,31 @@ export default function DocumentDashboard() {
           </table>
 
           <div className="table-footer">
-            <span>Hiển thị {visibleDocuments.length ? (page - 1) * pageSize + 1 : 0} - {Math.min(page * pageSize, filteredDocuments.length)} trong tổng số {filteredDocuments.length}</span>
+            <span>
+              Hiển thị {visibleDocuments.length ? (page - 1) * pageSize + 1 : 0}{" "}
+              - {Math.min(page * pageSize, filteredDocuments.length)} trong tổng
+              số {filteredDocuments.length}
+            </span>
             <div className="pagination">
-              {Array.from({ length: totalPages }, (_, index) => index + 1).map((n) => (
-                <button
-                  key={n}
-                  className={`pagination__btn ${page === n ? "is-active" : ""}`}
-                  onClick={() => setPage(n)}
-                >
-                  {n}
-                </button>
-              ))}
-              <select className="pagination__size" value={pageSize} onChange={(event) => { setPageSize(Number(event.target.value)); setPage(1); }}>
+              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+                (n) => (
+                  <button
+                    key={n}
+                    className={`pagination__btn ${page === n ? "is-active" : ""}`}
+                    onClick={() => setPage(n)}
+                  >
+                    {n}
+                  </button>
+                ),
+              )}
+              <select
+                className="pagination__size"
+                value={pageSize}
+                onChange={(event) => {
+                  setPageSize(Number(event.target.value));
+                  setPage(1);
+                }}
+              >
                 <option value="8">8 / trang</option>
                 <option value="16">16 / trang</option>
                 <option value="24">24 / trang</option>
@@ -458,7 +577,11 @@ export default function DocumentDashboard() {
             </div>
           </div>
         </section>
-        {message && <div className="document-message" role="status">{message}</div>}
+        {message && (
+          <div className="document-message" role="status">
+            {message}
+          </div>
+        )}
       </main>
 
       <aside className="doc-sidebar">

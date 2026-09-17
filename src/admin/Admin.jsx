@@ -194,13 +194,38 @@ const SEARCH_ITEMS = [
   { label: "Cài đặt", type: "Điều hướng", target: "cai-dat" },
   { label: "Nguyễn Minh Anh", type: "Sinh viên", target: "sinh-vien" },
   { label: "QDT_Chuy3.pdf", type: "Tài liệu", target: "tai-lieu" },
-  { label: "Cấu trúc dữ liệu cây nhị phân", type: "Câu hỏi", target: "cau-hoi" },
+  {
+    label: "Cấu trúc dữ liệu cây nhị phân",
+    type: "Câu hỏi",
+    target: "cau-hoi",
+  },
 ];
 
 const ADMIN_NOTIFICATIONS = [
-  { id: 1, title: "Feedback mới từ sinh viên", body: "Nguyễn Minh Anh vừa gửi góp ý về chế độ ôn tập.", time: "5 phút trước", target: "phan-hoi", tone: "feedback" },
-  { id: 2, title: "Tài liệu đã được xử lý", body: "QDT_Chuy3.pdf đã sẵn sàng để tạo câu hỏi.", time: "18 phút trước", target: "tai-lieu", tone: "document" },
-  { id: 3, title: "Sinh viên mới hoạt động", body: "Trần Quốc Bảo vừa hoàn thành bài luyện tập.", time: "1 giờ trước", target: "sinh-vien", tone: "student" },
+  {
+    id: 1,
+    title: "Feedback mới từ sinh viên",
+    body: "Nguyễn Minh Anh vừa gửi góp ý về chế độ ôn tập.",
+    time: "5 phút trước",
+    target: "phan-hoi",
+    tone: "feedback",
+  },
+  {
+    id: 2,
+    title: "Tài liệu đã được xử lý",
+    body: "QDT_Chuy3.pdf đã sẵn sàng để tạo câu hỏi.",
+    time: "18 phút trước",
+    target: "tai-lieu",
+    tone: "document",
+  },
+  {
+    id: 3,
+    title: "Sinh viên mới hoạt động",
+    body: "Trần Quốc Bảo vừa hoàn thành bài luyện tập.",
+    time: "1 giờ trước",
+    target: "sinh-vien",
+    tone: "student",
+  },
 ];
 
 const STATS = [
@@ -669,12 +694,15 @@ export default function Dashboard() {
   const [notificationOpen, setNotificationOpen] = useState(false);
   const currentDate = formatDashboardDate();
   const searchResults = searchQuery.trim()
-    ? SEARCH_ITEMS.filter((item) => item.label.toLowerCase().includes(searchQuery.trim().toLowerCase())).slice(0, 6)
+    ? SEARCH_ITEMS.filter((item) =>
+        item.label.toLowerCase().includes(searchQuery.trim().toLowerCase()),
+      ).slice(0, 6)
     : [];
 
   useEffect(() => {
     const closeFloatingMenus = (event) => {
-      if (!event.target.closest(".notification-menu")) setNotificationOpen(false);
+      if (!event.target.closest(".notification-menu"))
+        setNotificationOpen(false);
       if (!event.target.closest(".profile-menu")) setProfileOpen(false);
       if (!event.target.closest(".search")) setSearchQuery("");
     };
@@ -719,16 +747,35 @@ export default function Dashboard() {
               </button>
               {item.id === "cai-dat" && active === "cai-dat" && (
                 <div className="nav-submenu">
-                  {["general", "ai", "documents", "access", "notifications"].map((setting) => {
-                    const labels = { general: "Chung", ai: "AI", documents: "Tài liệu", access: "Quyền & bảo mật", notifications: "Thông báo" };
-                    return <button key={setting} className={activeSetting === setting ? "active" : ""} onClick={() => setActiveSetting(setting)}>{labels[setting]}</button>;
+                  {[
+                    "general",
+                    "ai",
+                    "documents",
+                    "access",
+                    "notifications",
+                  ].map((setting) => {
+                    const labels = {
+                      general: "Chung",
+                      ai: "AI",
+                      documents: "Tài liệu",
+                      access: "Quyền & bảo mật",
+                      notifications: "Thông báo",
+                    };
+                    return (
+                      <button
+                        key={setting}
+                        className={activeSetting === setting ? "active" : ""}
+                        onClick={() => setActiveSetting(setting)}
+                      >
+                        {labels[setting]}
+                      </button>
+                    );
                   })}
                 </div>
               )}
             </div>
           ))}
         </nav>
-
       </aside>
 
       {/* MAIN */}
@@ -750,7 +797,11 @@ export default function Dashboard() {
             {searchResults.length > 0 && (
               <div className="search-results" role="listbox">
                 {searchResults.map((item) => (
-                  <button key={`${item.type}-${item.label}`} type="button" onClick={() => handleSearchSelect(item)}>
+                  <button
+                    key={`${item.type}-${item.label}`}
+                    type="button"
+                    onClick={() => handleSearchSelect(item)}
+                  >
                     <span className="search-result-label">{item.label}</span>
                     <span className="search-result-type">{item.type}</span>
                   </button>
@@ -764,23 +815,56 @@ export default function Dashboard() {
 
           <div className="topbar-right">
             <div className="notification-menu">
-              <button className="bell" aria-label="Thông báo" aria-expanded={notificationOpen} onClick={() => setNotificationOpen((open) => !open)}>
-              <Icon name="bell" size={18} width={1.8} />
+              <button
+                className="bell"
+                aria-label="Thông báo"
+                aria-expanded={notificationOpen}
+                onClick={() => setNotificationOpen((open) => !open)}
+              >
+                <Icon name="bell" size={18} width={1.8} />
 
-              <i />
+                <i />
               </button>
               {notificationOpen && (
-                <div className="notification-dropdown" role="region" aria-label="Thông báo mới">
-                  <div className="notification-header"><strong>Thông báo</strong><span>{ADMIN_NOTIFICATIONS.length} mới</span></div>
+                <div
+                  className="notification-dropdown"
+                  role="region"
+                  aria-label="Thông báo mới"
+                >
+                  <div className="notification-header">
+                    <strong>Thông báo</strong>
+                    <span>{ADMIN_NOTIFICATIONS.length} mới</span>
+                  </div>
                   <div className="admin-notification-list">
                     {ADMIN_NOTIFICATIONS.map((notification) => (
-                      <button key={notification.id} className="notification-item" onClick={() => { setActive(notification.target); setNotificationOpen(false); }}>
-                        <span className={`notification-dot ${notification.tone}`} />
-                        <span className="notification-copy"><strong>{notification.title}</strong><span>{notification.body}</span><small>{notification.time}</small></span>
+                      <button
+                        key={notification.id}
+                        className="notification-item"
+                        onClick={() => {
+                          setActive(notification.target);
+                          setNotificationOpen(false);
+                        }}
+                      >
+                        <span
+                          className={`notification-dot ${notification.tone}`}
+                        />
+                        <span className="notification-copy">
+                          <strong>{notification.title}</strong>
+                          <span>{notification.body}</span>
+                          <small>{notification.time}</small>
+                        </span>
                       </button>
                     ))}
                   </div>
-                  <button className="notification-footer" onClick={() => { setActive("phan-hoi"); setNotificationOpen(false); }}>Xem tất cả feedback</button>
+                  <button
+                    className="notification-footer"
+                    onClick={() => {
+                      setActive("phan-hoi");
+                      setNotificationOpen(false);
+                    }}
+                  >
+                    Xem tất cả feedback
+                  </button>
                 </div>
               )}
             </div>
@@ -792,9 +876,9 @@ export default function Dashboard() {
                 aria-haspopup="menu"
                 onClick={() => setProfileOpen((open) => !open)}
               >
-              <span className="avatar">A</span>
-              {profileRole}
-              <Icon name="chevron" size={13} />
+                <span className="avatar">A</span>
+                {profileRole}
+                <Icon name="chevron" size={13} />
               </button>
 
               {profileOpen && (
@@ -806,6 +890,10 @@ export default function Dashboard() {
                       key={role}
                       className={profileRole === role ? "selected" : ""}
                       onClick={() => {
+                        if (role === "Sinh viên") {
+                          window.location.assign("/");
+                          return;
+                        }
                         setProfileRole(role);
                         setLogoutMessage("");
                         setProfileOpen(false);
@@ -834,7 +922,11 @@ export default function Dashboard() {
 
         {/* PAGE */}
         <main className="page">
-          {logoutMessage && <div className="logout-message" role="status">{logoutMessage}</div>}
+          {logoutMessage && (
+            <div className="logout-message" role="status">
+              {logoutMessage}
+            </div>
+          )}
           {active === "cai-dat" ? (
             <AdminSettings activeSetting={activeSetting} />
           ) : active === "sinh-vien" ? (
@@ -889,7 +981,16 @@ export default function Dashboard() {
                         </div>
                       </div>
 
-                      <LineChart data={ACTIVITY_BY_RANGE[range]} max={range === "7 ngày" ? 500 : range === "30 ngày" ? 1600 : 6000} />
+                      <LineChart
+                        data={ACTIVITY_BY_RANGE[range]}
+                        max={
+                          range === "7 ngày"
+                            ? 500
+                            : range === "30 ngày"
+                              ? 1600
+                              : 6000
+                        }
+                      />
                     </article>
 
                     {/* DONUT */}

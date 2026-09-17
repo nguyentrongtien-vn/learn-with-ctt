@@ -1,60 +1,74 @@
-import React, { useState } from 'react';
-import { useApp } from '../../context/AppContext';
-import Icon from '../ui/Icon';
+import React, { useEffect, useRef, useState } from "react";
+import { useApp } from "../../context/AppContext";
+import Icon from "../ui/Icon";
 
 export default function Header({ onToggleMobileMenu }) {
-  const {
-    user,
-    setSettingsModalOpen,
-    activeTab,
-    setActiveTab,
-    isDarkMode,
-    toggleDarkMode,
-    handleJumpToQuestion
-  } = useApp();
+  const { user, activeTab, setActiveTab, handleJumpToQuestion } = useApp();
 
   const [searchFocused, setSearchFocused] = useState(false);
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState("");
   const [notificationOpen, setNotificationOpen] = useState(false);
+  const notificationRef = useRef(null);
+
+  useEffect(() => {
+    if (!notificationOpen) return undefined;
+
+    const handleOutsideClick = (event) => {
+      if (!notificationRef.current?.contains(event.target)) {
+        setNotificationOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [notificationOpen]);
 
   const getPageTitle = () => {
     switch (activeTab) {
-      case 'home':
-        return 'Tổng quan học tập';
-      case 'courses':
-        return 'Khóa học của bạn';
-      case 'course-detail':
-        return 'Chi tiết môn học CS201';
-      case 'quiz':
-        return 'Trắc nghiệm thích ứng';
-      case 'study-calendar':
-        return 'Thời khóa biểu thông minh';
-      case 'ai-companion':
-        return 'CTT Socratic AI Mentor';
+      case "home":
+        return "Tổng quan học tập";
+      case "courses":
+        return "Khóa học của bạn";
+      case "course-detail":
+        return "Chi tiết môn học CS201";
+      case "quiz":
+        return "Trắc nghiệm thích ứng";
+      case "study-calendar":
+        return "Thời khóa biểu thông minh";
+      case "ai-companion":
+        return "CTT Socratic AI Mentor";
       default:
-        return 'HỌC CÙNG CTT';
+        return "HỌC CÙNG CTT";
     }
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     const query = searchValue.toLowerCase();
-    if (query.includes('tree') || query.includes('cây') || query.includes('traversal')) {
+    if (
+      query.includes("tree") ||
+      query.includes("cây") ||
+      query.includes("traversal")
+    ) {
       handleJumpToQuestion(2);
-      setActiveTab('quiz');
-      setSearchValue('');
-    } else if (query.includes('toán') || query.includes('ma110')) {
-      setActiveTab('courses');
-      setSearchValue('');
-    } else if (query.includes('lịch') || query.includes('tkb')) {
-      setActiveTab('study-calendar');
-      setSearchValue('');
-    } else if (query.includes('ai') || query.includes('mentor') || query.includes('hỏi')) {
-      setActiveTab('ai-companion');
-      setSearchValue('');
+      setActiveTab("quiz");
+      setSearchValue("");
+    } else if (query.includes("toán") || query.includes("ma110")) {
+      setActiveTab("courses");
+      setSearchValue("");
+    } else if (query.includes("lịch") || query.includes("tkb")) {
+      setActiveTab("study-calendar");
+      setSearchValue("");
+    } else if (
+      query.includes("ai") ||
+      query.includes("mentor") ||
+      query.includes("hỏi")
+    ) {
+      setActiveTab("ai-companion");
+      setSearchValue("");
     } else {
-      setActiveTab('courses');
-      setSearchValue('');
+      setActiveTab("courses");
+      setSearchValue("");
     }
   };
 
@@ -83,11 +97,15 @@ export default function Header({ onToggleMobileMenu }) {
           <div
             className={`flex items-center gap-2 w-full px-3 py-1.5 rounded-lg bg-surface-container-low/60 border transition-all ${
               searchFocused
-                ? 'border-primary/50 bg-surface-container-lowest shadow-2xs'
-                : 'border-surface-container-high/30 hover:border-surface-container-high/60'
+                ? "border-primary/50 bg-surface-container-lowest shadow-2xs"
+                : "border-surface-container-high/30 hover:border-surface-container-high/60"
             }`}
           >
-            <Icon name="search" size={16} className="text-on-surface-variant/80 shrink-0" />
+            <Icon
+              name="search"
+              size={16}
+              className="text-on-surface-variant/80 shrink-0"
+            />
             <input
               type="text"
               placeholder="Tìm kiếm nhanh... (Tree Traversal, CS201)"
@@ -104,14 +122,14 @@ export default function Header({ onToggleMobileMenu }) {
         </form>
       </div>
 
-      {/* Right side: Week Indicator, Theme Switcher & Notification */}
+      {/* Right side: Week Indicator & Notification */}
       <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <span className="hidden sm:inline-block text-[12px] font-medium text-on-surface-variant mr-1">
           {user.academicWeek}
         </span>
 
         {/* Notifications Button & Dropdown */}
-        <div className="relative">
+        <div ref={notificationRef} className="relative">
           <button
             onClick={() => setNotificationOpen(!notificationOpen)}
             className="w-8 h-8 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low flex items-center justify-center transition-colors relative"
@@ -122,16 +140,18 @@ export default function Header({ onToggleMobileMenu }) {
           </button>
 
           {notificationOpen && (
-            <div className="absolute right-0 mt-2 w-76 bg-surface-container-lowest rounded-xl shadow-lg border border-surface-container-high/60 p-3 z-50 animate-in fade-in duration-150">
+            <div className="absolute right-0 mt-2 w-[min(22rem,calc(100vw-2rem))] max-w-[calc(100vw-2rem)] bg-surface-container-lowest rounded-xl shadow-lg border border-surface-container-high/60 p-3 z-50 animate-in fade-in duration-150">
               <div className="flex items-center justify-between pb-2 mb-2 border-b border-surface-container-high/40 text-[12px] font-semibold text-on-surface">
                 <span>Thông báo</span>
-                <span className="text-[10px] text-error font-medium">1 bài ôn tập</span>
+                <span className="text-[10px] text-error font-medium">
+                  1 bài ôn tập
+                </span>
               </div>
 
               <div
                 onClick={() => {
                   handleJumpToQuestion(2);
-                  setActiveTab('quiz');
+                  setActiveTab("quiz");
                   setNotificationOpen(false);
                 }}
                 className="p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer flex flex-col gap-1"
@@ -147,16 +167,6 @@ export default function Header({ onToggleMobileMenu }) {
             </div>
           )}
         </div>
-
-        {/* Theme Toggle Button */}
-        <button
-          onClick={toggleDarkMode}
-          className="w-8 h-8 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low flex items-center justify-center transition-colors"
-          title={isDarkMode ? 'Giao diện sáng' : 'Giao diện tối'}
-          aria-label="Đổi giao diện"
-        >
-          <Icon name={isDarkMode ? 'light_mode' : 'dark_mode'} size={18} />
-        </button>
       </div>
     </header>
   );

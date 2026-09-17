@@ -1,17 +1,26 @@
-import React, { useState } from 'react';
-import { useApp } from '../../context/AppContext';
-import Icon from '../../components/ui/Icon';
-import ProgressBar from '../../components/ui/ProgressBar';
+import React, { useState } from "react";
+import { useApp } from "../../context/AppContext";
+import Icon from "../../components/ui/Icon";
+import ProgressBar from "../../components/ui/ProgressBar";
+import Modal from "../../components/ui/Modal";
 
 export default function CourseDetailPage() {
-  const { setActiveTab, cs201Detail, handleJumpToQuestion } = useApp();
+  const { setActiveTab, cs201Detail, handleJumpToQuestion, setQuizMode } =
+    useApp();
   const [documents, setDocuments] = useState(cs201Detail.documents);
-  const [activeFilter, setActiveFilter] = useState('all'); // 'all' | 'weak' | 'mastered'
+  const [activeFilter, setActiveFilter] = useState("all"); // 'all' | 'weak' | 'mastered'
   const [uploadNotice, setUploadNotice] = useState(null);
+  const [practiceModeOpen, setPracticeModeOpen] = useState(false);
 
   const handleStartQuiz = () => {
+    setPracticeModeOpen(true);
+  };
+
+  const handleSelectPracticeMode = (mode) => {
+    setPracticeModeOpen(false);
+    setQuizMode(mode);
     handleJumpToQuestion(2); // Jump to question 3
-    setActiveTab('quiz');
+    setActiveTab("quiz");
   };
 
   const handleUploadFake = (e) => {
@@ -20,10 +29,10 @@ export default function CourseDetailPage() {
       const newDoc = {
         id: `doc-${Date.now()}`,
         filename: file.name,
-        coreConcepts: 'Đang phân tích vector embeddings...',
-        status: 'Đã nạp',
+        coreConcepts: "Đang phân tích vector embeddings...",
+        status: "Đã nạp",
         synced: true,
-        size: `${(file.size / 1024 / 1024).toFixed(1)} MB`
+        size: `${(file.size / 1024 / 1024).toFixed(1)} MB`,
       };
       setDocuments((prev) => [newDoc, ...prev]);
       setUploadNotice(`Đã nạp thành công ${file.name}`);
@@ -32,8 +41,8 @@ export default function CourseDetailPage() {
   };
 
   const filteredKnowledge = cs201Detail.knowledgeTree.filter((item) => {
-    if (activeFilter === 'weak') return item.mastery < 60;
-    if (activeFilter === 'mastered') return item.mastery >= 60;
+    if (activeFilter === "weak") return item.mastery < 60;
+    if (activeFilter === "mastered") return item.mastery >= 60;
     return true;
   });
 
@@ -44,10 +53,14 @@ export default function CourseDetailPage() {
         <div className="flex flex-col gap-1.5 min-w-0">
           <div className="flex items-center gap-2 text-on-surface-variant">
             <button
-              onClick={() => setActiveTab('courses')}
+              onClick={() => setActiveTab("courses")}
               className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary hover:underline transition-all group"
             >
-              <Icon name="arrow_back" size={17} className="group-hover:-translate-x-0.5 transition-transform" />
+              <Icon
+                name="arrow_back"
+                size={17}
+                className="group-hover:-translate-x-0.5 transition-transform"
+              />
               <span>Quay lại Khóa học</span>
             </button>
             <span className="text-outline-variant font-medium">/</span>
@@ -58,12 +71,16 @@ export default function CourseDetailPage() {
 
           <div className="flex items-baseline gap-3 flex-wrap">
             <h1 className="text-xl sm:text-2xl font-bold text-on-surface tracking-tight">
-              {cs201Detail.title} <span className="text-primary font-semibold">({cs201Detail.code})</span>
+              {cs201Detail.title}{" "}
+              <span className="text-primary font-semibold">
+                ({cs201Detail.code})
+              </span>
             </h1>
             <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full">
               <span className="w-2 h-2 rounded-full bg-secondary" />
               <span className="text-[12px] font-bold">
-                {cs201Detail.mastery}% Mastery · {documents.length} slide PDF đã kết nối
+                {cs201Detail.mastery}% Mastery · {documents.length} slide PDF đã
+                kết nối
               </span>
             </div>
           </div>
@@ -108,7 +125,9 @@ export default function CourseDetailPage() {
             <div className="flex items-center justify-between pb-3 border-b border-surface-container-high/40">
               <div className="flex items-center gap-2">
                 <Icon name="folder_open" size={20} className="text-primary" />
-                <h3 className="text-[15px] font-bold text-on-surface">Tài liệu đã nạp</h3>
+                <h3 className="text-[15px] font-bold text-on-surface">
+                  Tài liệu đã nạp
+                </h3>
               </div>
               <span className="text-[11px] font-bold px-2 py-0.5 rounded-full bg-primary/10 text-primary">
                 {documents.length} files
@@ -156,23 +175,29 @@ export default function CourseDetailPage() {
             <div className="flex items-center justify-between pb-3 border-b border-surface-container-high/40">
               <div className="flex items-center gap-2">
                 <Icon name="account_tree" size={20} className="text-primary" />
-                <h3 className="text-[15px] font-bold text-on-surface">Cây tri thức</h3>
+                <h3 className="text-[15px] font-bold text-on-surface">
+                  Cây tri thức
+                </h3>
               </div>
               <div className="flex items-center gap-1 bg-surface-container-low p-0.5 rounded-lg border border-surface-container-high/40 text-[11px] font-semibold">
                 <button
                   type="button"
-                  onClick={() => setActiveFilter('all')}
+                  onClick={() => setActiveFilter("all")}
                   className={`px-2 py-0.5 rounded ${
-                    activeFilter === 'all' ? 'bg-primary text-white' : 'text-on-surface-variant'
+                    activeFilter === "all"
+                      ? "bg-primary text-white"
+                      : "text-on-surface-variant"
                   }`}
                 >
                   Tất cả
                 </button>
                 <button
                   type="button"
-                  onClick={() => setActiveFilter('weak')}
+                  onClick={() => setActiveFilter("weak")}
                   className={`px-2 py-0.5 rounded ${
-                    activeFilter === 'weak' ? 'bg-error text-white' : 'text-on-surface-variant'
+                    activeFilter === "weak"
+                      ? "bg-error text-white"
+                      : "text-on-surface-variant"
                   }`}
                 >
                   Cần ôn
@@ -197,7 +222,11 @@ export default function CourseDetailPage() {
                       </h4>
                       <span
                         className={`text-[12px] font-extrabold ${
-                          isCritical ? 'text-error' : isGood ? 'text-secondary' : 'text-primary'
+                          isCritical
+                            ? "text-error"
+                            : isGood
+                              ? "text-secondary"
+                              : "text-primary"
                         }`}
                       >
                         {item.mastery}%
@@ -207,12 +236,16 @@ export default function CourseDetailPage() {
                     <ProgressBar
                       value={item.mastery}
                       max={100}
-                      variant={isCritical ? 'error' : isGood ? 'secondary' : 'primary'}
+                      variant={
+                        isCritical ? "error" : isGood ? "secondary" : "primary"
+                      }
                       height="h-1.5"
                     />
 
                     <div className="flex items-center justify-between text-[11px] text-on-surface-variant pt-0.5">
-                      <span>Đúng {item.correctQuestions}/{item.totalQuestions} câu</span>
+                      <span>
+                        Đúng {item.correctQuestions}/{item.totalQuestions} câu
+                      </span>
                       {isCritical && (
                         <button
                           type="button"
@@ -242,7 +275,9 @@ export default function CourseDetailPage() {
             <div className="flex items-center justify-between pb-3 border-b border-surface-container-high/40">
               <div className="flex items-center gap-2">
                 <Icon name="psychology" size={20} className="text-primary" />
-                <h3 className="text-[15px] font-bold text-on-surface">Chẩn đoán CTT AI</h3>
+                <h3 className="text-[15px] font-bold text-on-surface">
+                  Chẩn đoán CTT AI
+                </h3>
               </div>
               <span className="text-[11px] font-bold text-error bg-error-container/60 px-2 py-0.5 rounded-full">
                 Tree Traversal
@@ -273,8 +308,12 @@ export default function CourseDetailPage() {
 
             {/* Quick Drill Preview */}
             <div className="p-3 rounded-xl bg-surface-container-low/60 flex items-center justify-between text-[12px] border border-surface-container-high/30">
-              <span className="text-on-surface-variant font-medium">Thời gian hoàn thành:</span>
-              <span className="font-bold text-on-surface">{cs201Detail.aiDiagnostic.estimatedTime}</span>
+              <span className="text-on-surface-variant font-medium">
+                Thời gian hoàn thành:
+              </span>
+              <span className="font-bold text-on-surface">
+                {cs201Detail.aiDiagnostic.estimatedTime}
+              </span>
             </div>
           </div>
 
@@ -290,7 +329,7 @@ export default function CourseDetailPage() {
             </button>
             <button
               type="button"
-              onClick={() => setActiveTab('ai-companion')}
+              onClick={() => setActiveTab("ai-companion")}
               className="text-center text-[12px] font-semibold text-primary hover:underline"
             >
               Hoặc thảo luận trực tiếp với AI Mentor
@@ -298,6 +337,53 @@ export default function CourseDetailPage() {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={practiceModeOpen}
+        onClose={() => setPracticeModeOpen(false)}
+        title="Bạn muốn luyện tập chế độ nào?"
+        icon="quiz"
+        maxWidth="max-w-2xl"
+      >
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <button
+            type="button"
+            onClick={() => handleSelectPracticeMode("practice")}
+            className="group flex min-h-44 flex-col items-start justify-between rounded-2xl border border-secondary/30 bg-secondary-container/20 p-5 text-left transition-all hover:-translate-y-0.5 hover:border-secondary hover:bg-secondary-container/40 hover:shadow-md"
+          >
+            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-secondary/15 text-secondary">
+              <Icon name="self_improvement" size={24} />
+            </span>
+            <span className="mt-5 flex flex-col gap-1">
+              <span className="text-[15px] font-bold text-on-surface">
+                Chế độ luyện tập nhẹ nhàng
+              </span>
+              <span className="text-[12px] leading-relaxed text-on-surface-variant">
+                Học theo nhịp độ thoải mái và nhận gợi ý trong quá trình làm
+                bài.
+              </span>
+            </span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => handleSelectPracticeMode("exam")}
+            className="group flex min-h-44 flex-col items-start justify-between rounded-2xl border border-primary/30 bg-primary/10 p-5 text-left transition-all hover:-translate-y-0.5 hover:border-primary hover:bg-primary/20 hover:shadow-md"
+          >
+            <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/15 text-primary">
+              <Icon name="timer" size={24} />
+            </span>
+            <span className="mt-5 flex flex-col gap-1">
+              <span className="text-[15px] font-bold text-on-surface">
+                Chế độ thi khắc nghiệt
+              </span>
+              <span className="text-[12px] leading-relaxed text-on-surface-variant">
+                Làm bài như một kỳ thi thật với thời gian và áp lực cao hơn.
+              </span>
+            </span>
+          </button>
+        </div>
+      </Modal>
     </div>
   );
 }

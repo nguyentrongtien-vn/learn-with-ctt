@@ -1,14 +1,20 @@
-import React, { useState } from 'react';
-import '../../form_login/style.css';
+import React, { useState } from "react";
+import "../../form_login/style.css";
 
 export default function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setError(!username.trim() || !password.trim());
+    const isInvalid = !username.trim() || !password.trim();
+    setError(isInvalid);
+
+    if (!isInvalid) {
+      sessionStorage.setItem("ctt-authenticated", "true");
+      window.location.assign("/");
+    }
   };
 
   return (
@@ -46,7 +52,7 @@ export default function Login() {
             <b>Đăng nhập</b>
           </button>
           <p>
-            Bạn đã có tài khoản chưa?{' '}
+            Bạn đã có tài khoản chưa?{" "}
             <a href="/create-account" className="create-account">
               Tạo tài khoản
             </a>

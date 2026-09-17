@@ -77,10 +77,22 @@
   border-radius: 10px;
 }
 
-.su-stat-icon--blue { background: var(--su-blue-soft); color: var(--su-blue); }
-.su-stat-icon--green { background: var(--su-green-soft); color: var(--su-green); }
-.su-stat-icon--purple { background: var(--su-purple-soft); color: var(--su-purple); }
-.su-stat-icon--red { background: var(--su-red-soft); color: var(--su-red); }
+.su-stat-icon--blue {
+  background: var(--su-blue-soft);
+  color: var(--su-blue);
+}
+.su-stat-icon--green {
+  background: var(--su-green-soft);
+  color: var(--su-green);
+}
+.su-stat-icon--purple {
+  background: var(--su-purple-soft);
+  color: var(--su-purple);
+}
+.su-stat-icon--red {
+  background: var(--su-red-soft);
+  color: var(--su-red);
+}
 
 .su-stat-value {
   font-size: 28px;
@@ -104,8 +116,12 @@
   font-weight: 600;
 }
 
-.su-stat-delta--up { color: var(--su-green); }
-.su-stat-delta--down { color: var(--su-red); }
+.su-stat-delta--up {
+  color: var(--su-green);
+}
+.su-stat-delta--down {
+  color: var(--su-red);
+}
 
 .su-stat-delta-note {
   color: var(--su-text-muted);
@@ -241,8 +257,14 @@
   margin-right: 6px;
 }
 
-.su-badge--active { background: var(--su-green-soft); color: var(--su-green); }
-.su-badge--inactive { background: var(--su-red-soft); color: var(--su-red); }
+.su-badge--active {
+  background: var(--su-green-soft);
+  color: var(--su-green);
+}
+.su-badge--inactive {
+  background: var(--su-red-soft);
+  color: var(--su-red);
+}
 
 .su-row-btn {
   display: inline-flex;

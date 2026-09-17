@@ -1,6 +1,6 @@
-import React from 'react';
-import { useApp } from '../../../context/AppContext';
-import Icon from '../../../components/ui/Icon';
+import React from "react";
+import { useApp } from "../../../context/AppContext";
+import Icon from "../../../components/ui/Icon";
 
 export default function QuizHeader() {
   const {
@@ -8,12 +8,14 @@ export default function QuizHeader() {
     activeQuestionIndex,
     quizTimeLeft,
     handleJumpToQuestion,
-    setActiveTab
+    setActiveTab,
+    quizMode,
+    setQuizMode,
   } = useApp();
 
   const minutes = Math.floor(quizTimeLeft / 60);
   const seconds = quizTimeLeft % 60;
-  const timeFormatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  const timeFormatted = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 
   const currentQ = quizQuestions[activeQuestionIndex];
 
@@ -26,12 +28,10 @@ export default function QuizHeader() {
             <Icon name="account_tree" size={20} />
           </div>
           <div className="flex items-center gap-2 truncate">
-            <span className="text-[13px] text-primary font-bold">
-              CS201
-            </span>
+            <span className="text-[13px] text-primary font-bold">CS201</span>
             <span className="text-outline text-xs">/</span>
             <span className="text-[14px] sm:text-[15px] text-on-surface font-bold truncate">
-              {currentQ?.topic || 'Tree Traversal'}
+              {currentQ?.topic || "Tree Traversal"}
             </span>
             <span className="hidden sm:inline-flex px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-[12px] font-bold">
               Câu {activeQuestionIndex + 1}/{quizQuestions.length}
@@ -44,22 +44,27 @@ export default function QuizHeader() {
           <div
             className={`flex items-center gap-2 px-3.5 py-1.5 rounded-xl font-mono text-sm sm:text-base font-bold tracking-tight shadow-2xs border ${
               quizTimeLeft < 60
-                ? 'bg-error-container text-error border-error/30 animate-pulse'
-                : 'bg-surface-container-low text-primary border-surface-container-high/50'
+                ? "bg-error-container text-error border-error/30 animate-pulse"
+                : "bg-surface-container-low text-primary border-surface-container-high/50"
             }`}
           >
             <Icon name="timer" size={18} />
             <span>{timeFormatted}</span>
           </div>
 
-          <button
-            onClick={() => setActiveTab('course-detail')}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-on-surface-variant hover:text-error hover:bg-error-container/30 rounded-xl transition-colors text-[13px] font-semibold border border-surface-container-high/30"
-            type="button"
-          >
-            <Icon name="logout" size={17} />
-            <span className="hidden sm:inline">Thoát</span>
-          </button>
+          {quizMode !== "exam" && (
+            <button
+              onClick={() => {
+                setQuizMode("practice");
+                setActiveTab("course-detail");
+              }}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-on-surface-variant hover:text-error hover:bg-error-container/30 rounded-xl transition-colors text-[13px] font-semibold border border-surface-container-high/30"
+              type="button"
+            >
+              <Icon name="logout" size={17} />
+              <span className="hidden sm:inline">Thoát</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -71,18 +76,22 @@ export default function QuizHeader() {
         <div className="flex items-center gap-2 overflow-x-auto py-1">
           {quizQuestions.map((q, idx) => {
             const isActive = idx === activeQuestionIndex;
-            let btnClass = 'bg-surface-container-low text-on-surface-variant hover:bg-surface-container border border-surface-container-high/40';
+            let btnClass =
+              "bg-surface-container-low text-on-surface-variant hover:bg-surface-container border border-surface-container-high/40";
             let iconOrDot = null;
 
             if (isActive) {
-              btnClass = 'bg-primary text-white font-extrabold shadow-sm ring-2 ring-primary/40 ring-offset-2 border-transparent scale-105';
+              btnClass =
+                "bg-primary text-white font-extrabold shadow-sm ring-2 ring-primary/40 ring-offset-2 border-transparent scale-105";
               iconOrDot = <span className="text-[10px] ml-0.5">●</span>;
-            } else if (q.isAnswered) {
+            } else if (q.isAnswered && quizMode !== "exam") {
               if (q.isCorrect) {
-                btnClass = 'bg-secondary/15 text-secondary font-bold hover:ring-1 hover:ring-secondary border-secondary/30';
+                btnClass =
+                  "bg-secondary/15 text-secondary font-bold hover:ring-1 hover:ring-secondary border-secondary/30";
                 iconOrDot = <Icon name="check" size={13} />;
               } else {
-                btnClass = 'bg-error-container/60 text-error font-bold hover:ring-1 hover:ring-error border-error/30';
+                btnClass =
+                  "bg-error-container/60 text-error font-bold hover:ring-1 hover:ring-error border-error/30";
                 iconOrDot = <Icon name="close" size={13} />;
               }
             }

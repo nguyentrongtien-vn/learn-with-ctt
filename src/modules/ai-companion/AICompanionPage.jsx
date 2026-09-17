@@ -9,9 +9,9 @@ export default function AICompanionPage() {
   const { handleSendMessage } = useApp();
 
   return (
-    <div className="flex flex-col lg:flex-row w-full gap-5 select-none max-w-6xl mx-auto py-1">
+    <div className="flex h-[calc(100vh-7.5rem)] min-h-0 flex-col lg:flex-row w-full gap-5 select-none max-w-6xl mx-auto py-1">
       {/* Left Main Socratic Chat Area */}
-      <section className="flex-1 w-full lg:w-[68%] flex flex-col justify-between bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-container-high/40 p-4 sm:p-5 relative min-h-[560px]">
+      <section className="flex-1 w-full lg:w-[68%] min-h-0 flex flex-col bg-surface-container-lowest rounded-2xl shadow-sm border border-surface-container-high/40 p-4 sm:p-5 relative overflow-hidden">
         {/* Chat Header */}
         <div className="relative z-10 flex items-center justify-between pb-3.5 border-b border-surface-container-high/40 shrink-0">
           <div className="flex items-center gap-3">
