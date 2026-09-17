@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { MessageCircleMore, ChevronDown, Star, Send } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { MessageCircleMore, ChevronDown, Star, Send, X } from "lucide-react";
 import "./Feedback.css";
 
 export default function Feedback() {
@@ -7,8 +7,19 @@ export default function Feedback() {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [content, setContent] = useState("");
+  const [images, setImages] = useState([]);
   const [error, setError] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const imageInputRef = useRef(null);
+  const imagesRef = useRef(images);
+
+  imagesRef.current = images;
+
+  useEffect(() => {
+    return () => {
+      imagesRef.current.forEach((image) => URL.revokeObjectURL(image.preview));
+    };
+  }, []);
 
   const options = [
     { label: "Bug report", value: "bug" },
@@ -26,7 +37,44 @@ export default function Feedback() {
     if (!hasError) {
       setSubmitted(true);
       // TODO: gửi dữ liệu lên server ở đây (fetch/axios...)
-      console.log({ feedbackType, rating, content });
+      console.log({
+        feedbackType,
+        rating,
+        content,
+        images: images.map((image) => image.file),
+      });
+    }
+  };
+
+  const handleImageChange = (event) => {
+    const selectedFiles = Array.from(event.target.files || []);
+
+    if (selectedFiles.length > 0) {
+      setImages((currentImages) => [
+        ...currentImages,
+        ...selectedFiles.map((file) => ({
+          file,
+          preview: URL.createObjectURL(file),
+        })),
+      ]);
+    }
+
+    event.currentTarget.value = "";
+  };
+
+  const removeImage = (imageIndex) => {
+    const imageToRemove = images[imageIndex];
+
+    if (imageToRemove?.preview) {
+      URL.revokeObjectURL(imageToRemove.preview);
+    }
+
+    setImages((currentImages) =>
+      currentImages.filter((_, index) => index !== imageIndex),
+    );
+
+    if (imageInputRef.current) {
+      imageInputRef.current.value = "";
     }
   };
 
@@ -123,6 +171,54 @@ export default function Feedback() {
            text-sm text-black placeholder-slate-400 resize-y
            focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+          </div>
+
+          {/* Image attachment */}
+          <div>
+            <label
+              htmlFor="feedback-image"
+              className="block text-sm font-semibold text-slate-800 mb-2"
+            >
+              Add images <span className="text-slate-400 font-normal">(optional)</span>
+            </label>
+            <label htmlFor="feedback-image" className="feedback-upload">
+              <span>Choose images</span>
+              <span className="feedback-upload-hint">PNG, JPG, JPEG</span>
+            </label>
+            <input
+              ref={imageInputRef}
+              id="feedback-image"
+              type="file"
+              multiple
+              accept="image/png,image/jpeg,image/jpg"
+              onChange={handleImageChange}
+              className="sr-only"
+            />
+
+            {images.length > 0 && (
+              <div className="feedback-image-preview">
+                {images.map((image, index) => (
+                  <div className="feedback-image-item" key={image.preview}>
+                    <img
+                      src={image.preview}
+                      alt={`Selected feedback attachment ${index + 1}`}
+                    />
+                    <button
+                      type="button"
+                      className="feedback-image-remove"
+                      aria-label={`Remove image ${index + 1}`}
+                      onClick={(event) => {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        removeImage(index);
+                      }}
+                    >
+                      <X size={13} strokeWidth={2.5} />
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Error message */}

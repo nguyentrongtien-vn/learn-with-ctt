@@ -11,9 +11,17 @@ import SettingsModal from "./modules/settings/SettingsModal";
 import Login from "./components/Login";
 import CreateAccount from "./components/CreateAccount";
 import Feedback from "./components/Feedback";
+import Admin from "./Admin/Admin";
 
 export default function App() {
   const { activeTab, settingsModalOpen, setSettingsModalOpen } = useApp();
+
+  if (
+    window.location.pathname === "/admin" ||
+    window.location.pathname === "/admin/"
+  ) {
+    return <Admin />;
+  }
 
   if (
     window.location.pathname === "/login" ||
