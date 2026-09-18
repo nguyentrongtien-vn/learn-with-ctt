@@ -33,6 +33,8 @@ export default function Header({ onToggleMobileMenu }) {
         return "Chi tiết môn học CS201";
       case "quiz":
         return "Trắc nghiệm thích ứng";
+      case "adaptive-insights":
+        return "Phân tích năng lực";
       case "study-calendar":
         return "Thời khóa biểu thông minh";
       case "ai-companion":

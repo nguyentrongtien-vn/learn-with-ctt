@@ -5,6 +5,7 @@ import HomePage from "./modules/home/HomePage";
 import CoursesPage from "./modules/courses/CoursesPage";
 import CourseDetailPage from "./modules/courses/CourseDetailPage";
 import QuizPage from "./modules/quiz/QuizPage";
+import AdaptiveInsightsPage from "./modules/quiz/components/AdaptiveInsightsPage";
 import AICompanionPage from "./modules/ai-companion/AICompanionPage";
 import StudyCalendarPage from "./modules/calendar/StudyCalendarPage";
 import SettingsModal from "./modules/settings/SettingsModal";
@@ -16,6 +17,7 @@ import Admin from "./Admin/Admin";
 export default function App() {
   const {
     activeTab,
+    setActiveTab,
     quizMode,
     settingsModalOpen,
     setSettingsModalOpen,
@@ -56,6 +58,8 @@ export default function App() {
         return <CourseDetailPage />;
       case "quiz":
         return <QuizPage />;
+      case "adaptive-insights":
+        return <AdaptiveInsightsPage onBack={() => setActiveTab("quiz")} />;
       case "ai-companion":
         return <AICompanionPage />;
       case "study-calendar":

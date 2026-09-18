@@ -1,29 +1,13 @@
 import React, { useState } from "react";
-import { useApp } from "../../../context/AppContext";
 import Icon from "../../../components/ui/Icon";
 
 export default function CalendarHeader({
   activeView,
   setActiveView,
   onJumpToday,
+  onAddStudySchedule,
 }) {
-  const { calendarOptimized, setCalendarOptimized } = useApp();
-
-  const [isOptimizing, setIsOptimizing] = useState(false);
-  const [successMsg, setSuccessMsg] = useState(false);
   const [syncedGoogle, setSyncedGoogle] = useState(false);
-
-  const handleOptimize = () => {
-    setIsOptimizing(true);
-    setTimeout(() => {
-      setIsOptimizing(false);
-      setSuccessMsg(true);
-      setCalendarOptimized(true);
-      setTimeout(() => {
-        setSuccessMsg(false);
-      }, 2500);
-    }, 700);
-  };
 
   const handleSyncGoogle = () => {
     setSyncedGoogle(true);
@@ -33,14 +17,14 @@ export default function CalendarHeader({
   };
 
   return (
-    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-surface-container-high/40">
+    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 max-[640px]:gap-2 pb-2 max-[640px]:pb-1 border-b border-surface-container-high/40">
       {/* Left: Google Calendar Style Navigation */}
-      <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+      <div className="flex items-center gap-3 sm:gap-4 max-[640px]:gap-2 flex-wrap">
         {/* Today Button */}
         <button
           type="button"
           onClick={onJumpToday}
-          className="px-4 py-2 rounded-full border border-surface-container-high/80 hover:bg-surface-container text-on-surface text-[14px] font-semibold transition-all active:scale-95 shadow-2xs"
+          className="px-4 py-2 max-[640px]:px-2.5 max-[640px]:py-1.5 rounded-full border border-surface-container-high/80 hover:bg-surface-container text-on-surface text-[14px] max-[640px]:text-[11px] font-semibold transition-all active:scale-95 shadow-2xs"
         >
           Hôm nay
         </button>
@@ -65,23 +49,23 @@ export default function CalendarHeader({
 
         {/* Big Month & Year */}
         <div className="flex items-baseline gap-2.5">
-          <h2 className="text-xl sm:text-2xl font-bold text-on-surface tracking-tight">
+          <h2 className="text-xl sm:text-2xl max-[640px]:text-base font-bold text-on-surface tracking-tight">
             Tháng 10 năm 2024
           </h2>
-          <span className="text-[13px] font-semibold text-primary px-2.5 py-0.5 rounded-full bg-primary/10">
+          <span className="text-[13px] max-[640px]:text-[10px] font-semibold text-primary px-2.5 max-[640px]:px-1.5 py-0.5 rounded-full bg-primary/10">
             Tuần 7 · EIU
           </span>
         </div>
       </div>
 
       {/* Right: View Switcher & AI Actions */}
-      <div className="flex items-center gap-2.5 flex-wrap">
+      <div className="flex items-center gap-1.5 max-[640px]:gap-1 flex-nowrap overflow-x-auto pb-1">
         {/* View Switcher (Tuần / Danh sách) */}
-        <div className="flex items-center p-1 rounded-xl bg-surface-container-low border border-surface-container-high/50 text-[13px] font-medium">
+        <div className="flex shrink-0 items-center p-0.5 rounded-xl bg-surface-container-low border border-surface-container-high/50 text-[12px] max-[640px]:text-[10px] font-medium">
           <button
             type="button"
             onClick={() => setActiveView("grid")}
-            className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+            className={`px-2.5 py-1.5 max-[640px]:px-1.5 max-[640px]:py-1 rounded-lg transition-all flex items-center gap-1 max-[640px]:gap-0.5 ${
               activeView === "grid"
                 ? "bg-surface-container-lowest text-primary font-bold shadow-2xs"
                 : "text-on-surface-variant hover:text-on-surface"
@@ -93,7 +77,7 @@ export default function CalendarHeader({
           <button
             type="button"
             onClick={() => setActiveView("list")}
-            className={`px-3.5 py-1.5 rounded-lg transition-all flex items-center gap-1.5 ${
+            className={`px-2.5 py-1.5 max-[640px]:px-1.5 max-[640px]:py-1 rounded-lg transition-all flex items-center gap-1 max-[640px]:gap-0.5 ${
               activeView === "list"
                 ? "bg-surface-container-lowest text-primary font-bold shadow-2xs"
                 : "text-on-surface-variant hover:text-on-surface"
@@ -108,7 +92,7 @@ export default function CalendarHeader({
         <button
           type="button"
           onClick={handleSyncGoogle}
-          className="px-3.5 py-2 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-[13px] font-semibold border border-surface-container-high/50 transition-colors flex items-center gap-2 shadow-2xs"
+          className="flex shrink-0 items-center gap-1.5 max-[640px]:gap-1 px-3 py-2 max-[640px]:px-2 max-[640px]:py-1.5 rounded-xl bg-surface-container-low hover:bg-surface-container text-on-surface text-[12px] max-[640px]:text-[10px] font-semibold border border-surface-container-high/50 transition-colors shadow-2xs"
         >
           <Icon
             name={syncedGoogle ? "check" : "sync"}
@@ -120,33 +104,14 @@ export default function CalendarHeader({
           </span>
         </button>
 
-        {/* AI Optimize Button */}
+        {/* Add study schedule */}
         <button
           type="button"
-          onClick={handleOptimize}
-          disabled={isOptimizing}
-          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-white text-[13px] font-bold shadow-sm transition-all active:scale-95 ${
-            successMsg ? "bg-emerald-600" : "bg-primary hover:bg-primary/90"
-          }`}
+          onClick={onAddStudySchedule}
+          className="flex shrink-0 items-center gap-1.5 max-[640px]:gap-1 px-3 py-2 max-[640px]:px-2 max-[640px]:py-1.5 rounded-xl bg-primary hover:bg-primary/90 text-white text-[12px] max-[640px]:text-[10px] font-semibold border border-primary transition-all active:scale-95 shadow-2xs"
         >
-          {isOptimizing ? (
-            <>
-              <span className="material-symbols-outlined text-[17px] animate-spin">
-                refresh
-              </span>
-              <span>Đang tính toán...</span>
-            </>
-          ) : successMsg ? (
-            <>
-              <Icon name="done_all" size={17} />
-              <span>Đã khớp 3 phiên học!</span>
-            </>
-          ) : (
-            <>
-              <Icon name="auto_awesome" size={17} />
-              <span>Tối ưu bằng AI</span>
-            </>
-          )}
+          <Icon name="add" size={17} />
+          <span>Thêm lịch học mới</span>
         </button>
       </div>
     </div>

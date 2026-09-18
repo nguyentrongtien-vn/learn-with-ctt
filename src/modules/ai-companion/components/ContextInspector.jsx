@@ -12,7 +12,7 @@ export default function ContextInspector() {
   };
 
   return (
-    <aside className="w-full lg:w-80 h-full min-h-0 flex flex-col gap-3 shrink-0 overflow-y-auto lg:overflow-y-auto select-none">
+    <aside className="flex h-auto min-h-0 w-full shrink-0 flex-col gap-3 overflow-y-visible select-none lg:h-full lg:w-80 lg:overflow-y-auto">
       {/* Box 1: Course Context */}
       <div className="bg-surface-container-lowest rounded-3xl p-4 shadow-sm border border-surface-container-high/40 flex flex-col gap-3 shrink-0">
         <div className="flex items-center justify-between pb-2 border-b border-surface-container-high/40">

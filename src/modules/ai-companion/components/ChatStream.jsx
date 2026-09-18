@@ -4,14 +4,18 @@ import Icon from '../../../components/ui/Icon';
 
 export default function ChatStream({ onSelectChip }) {
   const { chatMessages, isAiTyping, user } = useApp();
-  const messagesEndRef = useRef(null);
+  const streamRef = useRef(null);
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    const stream = streamRef.current;
+    if (!stream) return;
+    requestAnimationFrame(() => {
+      stream.scrollTop = stream.scrollHeight;
+    });
   }, [chatMessages, isAiTyping]);
 
   return (
-    <div className="relative z-10 flex-1 min-h-0 flex flex-col gap-3 py-2 overflow-y-auto pr-1">
+    <div ref={streamRef} className="relative z-10 flex-1 min-h-0 min-w-0 flex flex-col gap-3 overflow-y-auto overscroll-contain py-2 pr-1">
       {chatMessages.map((msg) => {
         const isUser = msg.sender === 'user';
 
@@ -41,7 +45,7 @@ export default function ChatStream({ onSelectChip }) {
               <Icon name="psychology" size={18} />
             </div>
 
-            <div className="max-w-[94%] sm:max-w-[88%] rounded-3xl rounded-tl-xs bg-surface-container-low/80 px-4.5 py-4 shadow-sm text-on-surface border border-surface-container-high/40">
+            <div className="min-w-0 max-w-[94%] overflow-hidden rounded-3xl rounded-tl-xs border border-surface-container-high/40 bg-surface-container-low/80 px-3 py-3 shadow-sm text-on-surface sm:max-w-[88%] sm:px-4.5 sm:py-4">
               <div className="flex items-center justify-between gap-3 mb-2 text-on-surface-variant flex-wrap">
                 <div className="flex items-center gap-2">
                   <span className="font-label-md text-label-md text-primary font-extrabold">
@@ -57,7 +61,7 @@ export default function ChatStream({ onSelectChip }) {
               </div>
 
               {/* Message Content with basic Markdown formatting */}
-              <div className="font-body-md text-body-md text-on-surface leading-relaxed whitespace-pre-wrap">
+              <div className="break-words font-body-md text-body-md text-on-surface leading-relaxed whitespace-pre-wrap">
                 {msg.content}
               </div>
 
@@ -114,7 +118,6 @@ export default function ChatStream({ onSelectChip }) {
         </div>
       )}
 
-      <div ref={messagesEndRef} />
     </div>
   );
 }

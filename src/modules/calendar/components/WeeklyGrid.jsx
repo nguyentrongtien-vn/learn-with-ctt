@@ -398,11 +398,11 @@ export default function WeeklyGrid({ onSelectSession }) {
         dọc, nhưng vẫn trượt ngang theo lưới giờ khi cuộn ngang.
       */}
       <div className="overflow-x-auto">
-        <div className="min-w-[1180px]">
+        <div className="w-full min-w-0">
           {/* 1. Google Calendar Sticky Day Headers */}
-          <div className="sticky top-0 z-30 grid grid-cols-[64px_repeat(7,1fr)] sm:grid-cols-[84px_repeat(7,1fr)] border-b border-surface-container-high/60 bg-surface-container-low/40 backdrop-blur-sm">
+          <div className="sticky top-0 z-30 grid grid-cols-[32px_repeat(7,minmax(0,1fr))] sm:grid-cols-[64px_repeat(7,minmax(0,1fr))] border-b border-surface-container-high/60 bg-surface-container-low/40 backdrop-blur-sm">
             {/* Timezone / GMT+7 corner */}
-            <div className="flex items-center justify-center border-r border-surface-container-high/40 text-[11px] font-semibold text-on-surface-variant/80">
+            <div className="flex items-center justify-center border-r border-surface-container-high/40 text-[11px] max-[640px]:text-[8px] font-semibold text-on-surface-variant/80">
               GMT+7
             </div>
 
@@ -421,7 +421,7 @@ export default function WeeklyGrid({ onSelectSession }) {
                   }`}
                 >
                   <span
-                    className={`text-[11px] font-bold tracking-wider uppercase ${
+                    className={`text-[11px] max-[640px]:text-[8px] font-bold tracking-wider uppercase ${
                       isToday ? "text-primary" : "text-on-surface-variant"
                     }`}
                   >
@@ -430,7 +430,7 @@ export default function WeeklyGrid({ onSelectSession }) {
 
                   {/* Circular Date (Google Calendar iconic circle) — thu nhỏ để đỡ chiếm chỗ */}
                   <div
-                    className={`mt-0.5 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center font-bold text-sm sm:text-base transition-transform hover:scale-105 ${
+                    className={`mt-0.5 w-7 h-7 sm:w-8 sm:h-8 max-[640px]:w-5 max-[640px]:h-5 rounded-full flex items-center justify-center font-bold text-sm sm:text-base max-[640px]:text-[10px] transition-transform hover:scale-105 ${
                       isToday
                         ? "bg-primary text-white shadow-md"
                         : "text-on-surface hover:bg-surface-container"
@@ -444,14 +444,14 @@ export default function WeeklyGrid({ onSelectSession }) {
           </div>
 
           {/* 2. Main Calendar Body with Time Guide & Event Blocks */}
-          <div className="wg-timegrid grid grid-cols-[64px_repeat(7,1fr)] sm:grid-cols-[84px_repeat(7,1fr)] relative">
+          <div className="wg-timegrid grid grid-cols-[32px_repeat(7,minmax(0,1fr))] sm:grid-cols-[64px_repeat(7,minmax(0,1fr))] relative">
             {/* Left Column: Time Axis Labels */}
             <div className="flex flex-col border-r border-surface-container-high/40 bg-surface-container-low/20">
               {timeSlots.map((time, tIdx) => (
                 <div
                   key={tIdx}
                   style={{ height: "var(--slot-h)" }}
-                  className="pr-2 pt-0.5 text-right text-[10px] sm:text-[11px] font-semibold text-on-surface-variant border-b border-surface-container-high/30 leading-none"
+                  className="pr-2 max-[640px]:pr-1 pt-0.5 text-right text-[10px] sm:text-[11px] max-[640px]:text-[8px] font-semibold text-on-surface-variant border-b border-surface-container-high/30 leading-none"
                 >
                   {time}
                 </div>
@@ -497,7 +497,7 @@ export default function WeeklyGrid({ onSelectSession }) {
                     neo đúng vào hàng giờ tương ứng bên trái.
                   */}
                   <div
-                    className="relative z-10 px-1.5 sm:px-2"
+                    className="relative z-10 px-1.5 sm:px-2 max-[640px]:px-0.5"
                     style={{ height: columnHeight }}
                   >
                     {dayItem.events.map((evt, eIdx) => {
@@ -512,27 +512,27 @@ export default function WeeklyGrid({ onSelectSession }) {
                           onClick={() => onSelectSession(evt)}
                           style={{
                             position: "absolute",
-                            left: "4px",
-                            right: "4px",
+                            left: "2px",
+                            right: "2px",
                             top: `calc(${offsetMin} / 60 * var(--slot-h))`,
                             // max(): đảm bảo card không bao giờ thấp hơn 76px dù sự kiện rất
                             // ngắn (vd 15-20 phút) -> đủ chỗ thoải mái cho 3 dòng (tên môn,
                             // giờ, phòng) không bị chồng/bóp chữ. Với event dài hơn 76 phút,
                             // card sẽ tự cao theo đúng thời lượng thật.
-                            height: `max(76px, calc(${durMin} / 60 * var(--slot-h) - 4px))`,
+                            height: `max(56px, calc(${durMin} / 60 * var(--slot-h) - 4px))`,
                           }}
-                          className={`px-2.5 py-2 rounded-lg cursor-pointer transition-all shadow-sm hover:shadow-md hover:z-20 hover:scale-[1.02] active:scale-98 flex flex-col justify-start gap-1.5 border-l-4 overflow-hidden ${badge.bg} ${badge.text} ${badge.border}`}
+                          className={`px-2.5 py-2 max-[640px]:px-1 max-[640px]:py-1 rounded-lg max-[640px]:rounded-md cursor-pointer transition-all shadow-sm hover:shadow-md hover:z-20 hover:scale-[1.02] active:scale-98 flex flex-col justify-start gap-1.5 max-[640px]:gap-0.5 border-l-4 max-[640px]:border-l-2 overflow-hidden ${badge.bg} ${badge.text} ${badge.border}`}
                         >
                           {/* Đã bỏ khối "Top: Code & Tag" (mã môn + nhãn loại tiết) theo yêu cầu.
                               Card vẫn giữ nguyên width/height nhờ style top/height không đổi. */}
 
                           {/* Title: gọn 2 dòng để vừa hàng giờ nhỏ */}
-                          <div className="text-[11px] sm:text-[12.5px] font-bold leading-tight line-clamp-2 drop-shadow-2xs">
+                          <div className="text-[11px] sm:text-[12.5px] max-[640px]:text-[8px] font-bold leading-tight line-clamp-2 drop-shadow-2xs">
                             {evt.title}
                           </div>
 
                           {/* Bottom: Time & Room — mỗi thứ 1 dòng riêng, giãn cách rõ hơn */}
-                          <div className="flex flex-col gap-1 text-[10px] sm:text-[11px] opacity-95 font-medium min-w-0">
+                          <div className="flex flex-col gap-1 max-[640px]:gap-0.5 text-[10px] sm:text-[11px] max-[640px]:text-[7px] opacity-95 font-medium min-w-0">
                             <span className="flex items-center gap-1 truncate">
                               <Icon name="schedule" size={11} />
                               <span className="truncate">{evt.time}</span>

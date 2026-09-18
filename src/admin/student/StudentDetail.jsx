@@ -186,16 +186,6 @@ export default function StudentDetail({ studentId, onBack }) {
               </div>
             </div>
           </div>
-          <button
-            className="su-btn-primary"
-            onClick={() =>
-              window.alert(
-                "Tính năng nhắn tin sẽ được bổ sung trong phiên bản tiếp theo.",
-              )
-            }
-          >
-            Nhắn tin
-          </button>
         </div>
 
         <div className="su-mini-stats">

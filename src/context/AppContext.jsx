@@ -8,6 +8,20 @@ import {
 import { initialQuizQuestions } from "../data/quizData";
 import { initialChatMessages, aiKnowledgeContext } from "../data/chatData";
 
+const WEEKDAY_INDEX = {
+  "Thứ 2": 1,
+  "Thứ 3": 2,
+  "Thứ 4": 3,
+  "Thứ 5": 4,
+  "Thứ 6": 5,
+  "Thứ 7": 6,
+  "Chủ nhật": 0,
+};
+
+function formatScheduleDate(date) {
+  return `${String(date.getDate()).padStart(2, "0")}/${String(date.getMonth() + 1).padStart(2, "0")}`;
+}
+
 const AppContext = createContext();
 
 export function AppProvider({ children }) {
@@ -46,9 +60,74 @@ export function AppProvider({ children }) {
   const [isAiTyping, setIsAiTyping] = useState(false);
 
   // Calendar State
+  const [calendarScheduleState, setCalendarScheduleState] =
+    useState(calendarSchedule);
   const [calendarOptimized, setCalendarOptimized] = useState(false);
   const [calendarLocked, setCalendarLocked] = useState(false);
   const [calendarViewMode, setCalendarViewMode] = useState("week"); // 'month' | 'week' | 'day'
+
+  const addStudySchedule = ({
+    title,
+    teacher,
+    weekday,
+    startTime,
+    endTime,
+    startDate,
+    endDate,
+    room,
+    note,
+  }) => {
+    const start = new Date(`${startDate}T12:00:00`);
+    const end = new Date(`${endDate}T12:00:00`);
+    const targetWeekday = WEEKDAY_INDEX[weekday];
+    const occurrences = [];
+
+    for (
+      const date = new Date(start);
+      date <= end;
+      date.setDate(date.getDate() + 1)
+    ) {
+      if (date.getDay() === targetWeekday) occurrences.push(new Date(date));
+    }
+    if (!occurrences.length) return 0;
+
+    const firstOccurrence = occurrences[0];
+    const newEvent = {
+      time: `${startTime} - ${endTime}`,
+      code: "NEW",
+      title,
+      room: room || "Chưa cập nhật",
+      type: "study",
+      teacher,
+      note,
+      recurrence: `${weekday}, ${formatScheduleDate(start)} - ${formatScheduleDate(end)}`,
+    };
+    const dayIndex = targetWeekday === 0 ? 6 : targetWeekday - 1;
+
+    setCalendarScheduleState((current) =>
+      current.map((day, index) =>
+        index === dayIndex
+          ? {
+              ...day,
+              events: [
+                ...day.events,
+                { ...newEvent, date: formatScheduleDate(firstOccurrence) },
+              ],
+            }
+          : day,
+      ),
+    );
+    return occurrences.length;
+  };
+
+  const removeCalendarSession = (sessionToRemove) => {
+    setCalendarScheduleState((current) =>
+      current.map((day) => ({
+        ...day,
+        events: day.events.filter((session) => session !== sessionToRemove),
+      })),
+    );
+  };
 
   // Quiz Actions
   const handleSelectQuizAnswer = (qIndex, answerKey) => {
@@ -249,7 +328,7 @@ export function AppProvider({ children }) {
     courses,
     setCourses,
     cs201Detail,
-    calendarSchedule,
+    calendarSchedule: calendarScheduleState,
     aiKnowledgeContext,
     // Quiz
     quizQuestions,
@@ -279,6 +358,8 @@ export function AppProvider({ children }) {
     setCalendarLocked,
     calendarViewMode,
     setCalendarViewMode,
+    addStudySchedule,
+    removeCalendarSession,
   };
 
   return (

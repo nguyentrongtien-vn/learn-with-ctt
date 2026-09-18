@@ -607,6 +607,7 @@ export default function SettingsModal({ isOpen, onClose }) {
   const [draft, setDraft] = useState({ ...DEFAULT_DRAFT, name: user.name });
   const [savedNotice, setSavedNotice] = useState(false);
   const [notice, setNotice] = useState("");
+  const [settingsNavOpen, setSettingsNavOpen] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
@@ -614,6 +615,7 @@ export default function SettingsModal({ isOpen, onClose }) {
       setDraft({ ...DEFAULT_DRAFT, name: user.name });
       setSavedNotice(false);
       setNotice("");
+      setSettingsNavOpen(false);
     }
   }, [isOpen]);
   const update = (key, value) =>
@@ -648,9 +650,39 @@ export default function SettingsModal({ isOpen, onClose }) {
       icon="settings"
       maxWidth="max-w-[calc(100vw-2rem)] lg:max-w-[72vw]"
     >
-      <div className="flex h-[60vh] max-h-[60vh] min-h-0 max-w-full min-w-0 flex-row gap-3 overflow-hidden text-left sm:gap-4">
+      <div className="flex min-h-0 max-w-full min-w-0 flex-col gap-2 overflow-hidden text-left sm:h-[60vh] sm:max-h-[60vh] sm:flex-row sm:gap-4">
+        <div className="relative sm:hidden">
+          <button
+            type="button"
+            onClick={() => setSettingsNavOpen((open) => !open)}
+            aria-expanded={settingsNavOpen}
+            aria-label="Mở danh mục cài đặt"
+            className="inline-flex items-center gap-2 rounded-xl border border-surface-container-high/60 bg-white px-3 py-2 text-[12px] font-bold text-on-surface shadow-sm"
+          >
+            <span className="text-primary">☰</span>
+            <span>{tab?.[1]}</span>
+          </button>
+          {settingsNavOpen && (
+            <div className="absolute left-0 top-11 z-30 grid w-full gap-1 rounded-xl border border-surface-container-high/60 bg-white p-2 shadow-xl">
+              {TABS.map(([id, label, icon]) => (
+                <button
+                  type="button"
+                  key={id}
+                  onClick={() => {
+                    setActiveTab(id);
+                    setSettingsNavOpen(false);
+                  }}
+                  className={`flex items-center gap-2 rounded-lg px-3 py-2.5 text-left text-[12px] font-semibold ${activeTab === id ? "bg-[#2563eb] text-white" : "text-slate-600 hover:bg-slate-100"}`}
+                >
+                  <Icon name={icon} size={17} />
+                  <span>{label}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
         <nav
-          className="flex h-fit max-h-[455px] w-32 shrink-0 flex-col gap-1 overflow-y-auto rounded-2xl border border-surface-container-high/60 bg-white p-2 shadow-lg shadow-slate-900/10 sm:w-56 sm:p-3"
+          className="hidden h-fit max-h-[455px] w-32 shrink-0 flex-col gap-1 overflow-y-auto rounded-2xl border border-surface-container-high/60 bg-white p-2 shadow-lg shadow-slate-900/10 sm:flex sm:w-56 sm:p-3"
           aria-label="Danh mục cài đặt"
         >
           {TABS.map(([id, label, icon]) => (
@@ -658,7 +690,7 @@ export default function SettingsModal({ isOpen, onClose }) {
               type="button"
               key={id}
               onClick={() => setActiveTab(id)}
-              className={`flex min-w-0 shrink-0 items-center gap-2 rounded-xl px-2 py-2.5 text-left text-[11px] font-semibold transition sm:gap-2.5 sm:px-3 sm:text-[12px] ${activeTab === id ? "bg-[#2563eb] text-white" : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"}`}
+              className={`flex min-w-0 shrink-0 items-center rounded-xl px-2 py-3.5 text-left text-[11px] font-semibold transition sm:gap-2.5 sm:px-3 sm:text-[12px] ${activeTab === id ? "bg-[#2563eb] text-white" : "text-slate-500 hover:bg-slate-100 hover:text-slate-900"}`}
             >
               <Icon name={icon} size={18} />
               <span className="min-w-0 truncate">{label}</span>

@@ -4,7 +4,12 @@ import Icon from "../../../components/ui/Icon";
 import Modal from "../../../components/ui/Modal";
 
 export default function SessionDetailModal({ session, onClose }) {
-  const { setActiveTab, setActiveCourseId, handleJumpToQuestion } = useApp();
+  const {
+    setActiveTab,
+    setActiveCourseId,
+    handleJumpToQuestion,
+    removeCalendarSession,
+  } = useApp();
   const [synced, setSynced] = useState(false);
 
   if (!session) return null;
@@ -27,6 +32,15 @@ export default function SessionDetailModal({ session, onClose }) {
     } else {
       setActiveTab("courses");
     }
+  };
+
+  const handleDelete = () => {
+    const confirmed = window.confirm(
+      `Xóa môn học "${session.title}" khỏi lịch?`,
+    );
+    if (!confirmed) return;
+    removeCalendarSession(session);
+    onClose();
   };
 
   const isAi = session.type === "ai-scheduled";
@@ -120,6 +134,15 @@ export default function SessionDetailModal({ session, onClose }) {
           >
             <span>{isAi ? "Bắt đầu ôn tập (10p)" : "Mở tài liệu môn học"}</span>
             <Icon name="arrow_forward" size={15} />
+          </button>
+
+          <button
+            type="button"
+            onClick={handleDelete}
+            className="order-first mr-auto px-3.5 py-2 rounded-xl border border-error/30 bg-error-container/50 text-error hover:bg-error-container text-[12px] font-semibold flex items-center gap-1.5 transition-colors"
+          >
+            <Icon name="delete" size={15} />
+            <span>Xóa môn học</span>
           </button>
         </div>
       </div>

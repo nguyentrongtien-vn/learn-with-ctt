@@ -17,7 +17,7 @@ export default function Layout({ children }) {
         <Header onToggleMobileMenu={() => setIsMobileDrawerOpen(true)} />
 
         {/* Dynamic Viewport Content */}
-        <main className="flex-1 overflow-y-auto p-3 sm:p-5 lg:p-6 bg-background pb-24 lg:pb-8">
+        <main className="flex-1 min-w-0 overflow-x-hidden overflow-y-auto p-3 sm:p-5 lg:p-6 bg-background pb-3 lg:pb-8">
           <div className="w-full max-w-7xl mx-auto">
             {children}
           </div>

@@ -3,23 +3,30 @@ import CalendarHeader from "./components/CalendarHeader";
 import WeeklyGrid from "./components/WeeklyGrid";
 import AgendaListView from "./components/AgendaListView";
 import SessionDetailModal from "./components/SessionDetailModal";
+import AddStudySchedulePage from "./components/AddStudySchedulePage";
 import Icon from "../../components/ui/Icon";
 
 export default function StudyCalendarPage() {
   const [selectedSession, setSelectedSession] = useState(null);
   const [activeView, setActiveView] = useState("grid"); // 'grid' | 'list'
+  const [showAddSchedule, setShowAddSchedule] = useState(false);
 
   const handleJumpToday = () => {
     setActiveView("grid");
   };
 
+  if (showAddSchedule) {
+    return <AddStudySchedulePage onBack={() => setShowAddSchedule(false)} />;
+  }
+
   return (
-    <div className="flex flex-col gap-4 select-none w-full max-w-[1440px] mx-auto py-1">
+    <div className="calendar-page flex flex-col gap-4 max-[640px]:gap-2 select-none w-full max-w-[1440px] mx-auto py-1">
       {/* 1. Header with Month, Navigation & Toggles */}
       <CalendarHeader
         activeView={activeView}
         setActiveView={setActiveView}
         onJumpToday={handleJumpToday}
+        onAddStudySchedule={() => setShowAddSchedule(true)}
       />
 
       {/* 2. Main Calendar: Weekly Grid (Google Calendar layout) or Agenda List */}

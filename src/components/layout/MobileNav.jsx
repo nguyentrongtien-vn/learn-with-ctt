@@ -14,6 +14,7 @@ export default function MobileNav({ isDrawerOpen, onCloseDrawer }) {
       matchTabs: ["courses", "course-detail"],
     },
     { id: "quiz", label: "Quiz", icon: "quiz" },
+    { id: "adaptive-insights", label: "Phân tích", icon: "insights" },
     { id: "study-calendar", label: "Lịch học", icon: "calendar_month" },
     { id: "ai-companion", label: "AI Mentor", icon: "psychology" },
   ];
@@ -27,35 +28,6 @@ export default function MobileNav({ isDrawerOpen, onCloseDrawer }) {
 
   return (
     <>
-      {/* Mobile Bottom Navigation Bar (Phone & Tablet) */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 h-16 bg-[#0b1220] border-t border-[#1d2b42] flex items-center justify-around px-2 z-40 shadow-[0_-2px_10px_rgba(0,0,0,0.2)]">
-        {navTabs.map((tab) => {
-          const active = isCurrentActive(tab);
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl transition-all ${
-                active
-                  ? "text-white font-bold"
-                  : "text-[#a8b4c7] hover:text-white"
-              }`}
-            >
-              <div
-                className={`p-1 rounded-lg ${
-                  active ? "bg-[#2563eb] text-white" : ""
-                }`}
-              >
-                <Icon name={tab.icon} size={20} fill={active} />
-              </div>
-              <span className="text-[10px] tracking-tight mt-0.5">
-                {tab.label}
-              </span>
-            </button>
-          );
-        })}
-      </nav>
-
       {/* Mobile Drawer (Slide out from left) */}
       {isDrawerOpen && (
         <div className="lg:hidden fixed inset-0 z-50 flex">

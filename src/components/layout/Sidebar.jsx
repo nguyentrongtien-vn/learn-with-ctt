@@ -28,6 +28,12 @@ export default function Sidebar() {
       matchTabs: ["quiz"],
     },
     {
+      id: "adaptive-insights",
+      label: "Phân tích năng lực",
+      icon: "insights",
+      matchTabs: ["adaptive-insights"],
+    },
+    {
       id: "ai-companion",
       label: "Trợ lý CTT AI",
       icon: "smart_toy",

@@ -153,6 +153,8 @@ const PATHS = {
   ),
 
   arrowUp: <path d="M12 19V5M5 12l7-7 7 7" />,
+  menu: <path d="M4 6h16M4 12h16M4 18h16" />,
+  close: <path d="M6 6l12 12M18 6L6 18" />,
 };
 
 function Icon({ name, size = 16, width = 2 }) {
@@ -617,7 +619,7 @@ function Donut({ percent = 86 }) {
 function FeedbackModule() {
   const statusLabels = {
     new: "Mới",
-    processing: "Đang xử lý",
+    processing: "Đang chờ xử lý",
     done: "Đã xử lý",
   };
 
@@ -657,6 +659,15 @@ function FeedbackModule() {
               <span>{"★".repeat(5 - feedback.rating)}</span>
             </div>
             <p className="feedback-content">{feedback.content}</p>
+            <button
+              type="button"
+              className="feedback-reply-btn"
+              onClick={() =>
+                window.alert(`Đang mở phần trả lời cho ${feedback.student}.`)
+              }
+            >
+              Trả lời phản hồi
+            </button>
           </article>
         ))}
       </section>
@@ -692,6 +703,7 @@ export default function Dashboard() {
   const [logoutMessage, setLogoutMessage] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [notificationOpen, setNotificationOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const currentDate = formatDashboardDate();
   const searchResults = searchQuery.trim()
     ? SEARCH_ITEMS.filter((item) =>
@@ -720,7 +732,15 @@ export default function Dashboard() {
   return (
     <div className="layout">
       {/* SIDEBAR */}
-      <aside className="sidebar">
+      <aside className={`sidebar ${mobileMenuOpen ? "sidebar-open" : ""}`}>
+        <button
+          type="button"
+          className="mobile-sidebar-close"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-label="Đóng menu"
+        >
+          <Icon name="close" size={18} />
+        </button>
         <div className="brand">
           <span className="brand-mark">
             <Icon name="cap" size={16} />
@@ -740,6 +760,7 @@ export default function Dashboard() {
                 onClick={() => {
                   setActive(item.id);
                   if (item.id === "cai-dat") setActiveSetting("general");
+                  setMobileMenuOpen(false);
                 }}
               >
                 <Icon name={item.icon} size={16} width={1.9} />
@@ -765,7 +786,10 @@ export default function Dashboard() {
                       <button
                         key={setting}
                         className={activeSetting === setting ? "active" : ""}
-                        onClick={() => setActiveSetting(setting)}
+                        onClick={() => {
+                          setActiveSetting(setting);
+                          setMobileMenuOpen(false);
+                        }}
                       >
                         {labels[setting]}
                       </button>
@@ -782,6 +806,14 @@ export default function Dashboard() {
       <div className="main">
         {/* TOPBAR */}
         <header className="topbar">
+          <button
+            type="button"
+            className="mobile-menu-toggle"
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Mở menu"
+          >
+            <Icon name="menu" size={20} />
+          </button>
           <div className="search">
             <span className="ico-l">
               <Icon name="search" size={14} />
@@ -928,7 +960,10 @@ export default function Dashboard() {
             </div>
           )}
           {active === "cai-dat" ? (
-            <AdminSettings activeSetting={activeSetting} />
+            <AdminSettings
+              activeSetting={activeSetting}
+              onChangeSetting={setActiveSetting}
+            />
           ) : active === "sinh-vien" ? (
             <StudentModule />
           ) : active === "phan-hoi" ? (
